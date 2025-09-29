@@ -1,0 +1,105 @@
+:root{
+  --accent:#00d0f0;
+  --header-bg:#0f172a; /* tmavý header */
+  --text-on-header:var(--accent);
+  --header-h:4.5rem;
+  --pad-x:1.25rem;
+  --submenu-indent:1.5rem; /* mobilní schod */
+}
+
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:
+    "Aptos",
+    "Inter",
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    "Helvetica Neue",
+    Arial,
+    "Apple Color Emoji","Segoe UI Emoji",
+    sans-serif;
+  color:#111;background:#fff;
+}
+
+/* Header */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--header-h);
+  background:var(--header-bg);color:var(--text-on-header);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:100%}
+.site-header .container{width:min(1100px,92vw);margin-inline:auto;padding-inline:var(--pad-x)}
+.brand{margin-right:auto}
+.brand img{height:40px;width:auto;display:block}
+
+/* Nav */
+.nav{display:contents}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:2rem}
+.nav a{
+  color:var(--text-on-header);text-decoration:none;font-weight:600;
+  letter-spacing:.02em;text-transform:uppercase;padding:.5rem .3rem;border-radius:.4rem
+}
+.nav a:hover,.nav a:focus{background:rgba(255,255,255,.08)}
+.nav a.is-active{background:rgba(255,255,255,.16)}
+
+/* DESKTOP submenu – pozici nastaví JS inline přes left/top (vlevo pod „Naše služby“) */
+.has-submenu{position:relative}
+.submenu{
+  position:fixed;
+  display:none !important;
+  min-width:220px;margin:0;padding:.15rem;
+  background:var(--header-bg);border:1px solid rgba(255,255,255,.1);
+  border-radius:.6rem;box-shadow:0 8px 20px rgba(0,0,0,.25);
+  flex-direction:column;gap:.15rem;z-index:1200;
+  align-items:stretch;text-align:left;
+}
+.has-submenu[data-open="true"] .submenu{display:flex !important}
+.submenu li{list-style:none}
+.submenu a{display:block;padding:.45rem .6rem;text-align:left}
+
+/* Mobil */
+.nav-toggle{display:none;background:transparent;border:0;color:var(--text-on-header);font-size:1.5rem}
+@media(max-width:768px){
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;margin-left:auto}
+  .nav{display:block}
+  .nav ul{
+    position:fixed;left:0;right:0;top:var(--header-h);
+    background:var(--header-bg);
+    flex-direction:column;padding:1rem var(--pad-x);gap:1rem;display:none
+  }
+  .nav ul[aria-expanded="true"]{display:flex}
+  .nav ul>li{width:100%;border-top:1px solid rgba(255,255,255,.12);padding-top:.5rem;margin-top:.25rem}
+  .nav ul>li:first-child{border-top:1px solid rgba(255,255,255,.12)}
+  .nav ul>li>a{display:block;width:100%;text-align:left;padding-left:0}
+
+  .has-submenu .submenu{
+    position:static;margin:0;padding:0;border:0;box-shadow:none;
+    gap:.6rem;display:none !important;margin-left:var(--submenu-indent);
+    text-align:left;align-items:stretch
+  }
+  .has-submenu[data-open="true"] .submenu{display:block !important}
+}
+
+/* Preloader */
+#preloader[hidden]{display:none}
+#preloader{position:fixed;inset:0;background:#0b1220;display:grid;place-items:center;z-index:2000}
+#preloader .spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.25);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

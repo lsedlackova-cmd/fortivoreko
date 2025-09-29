@@ -1,0 +1,90 @@
+:root{
+  --accent:#00d0f0;
+  --frame:#0ea5b6;
+  --dot:#93c5fd;
+  --dot-active:#00d0f0;
+  --slide-rad:12px;
+}
+
+/* KARUSEL */
+.carousel{
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--slide-rad);
+}
+.carousel .track{
+  display: flex;
+  transition: transform .6s ease;
+  will-change: transform;
+}
+.carousel .slide{
+  box-sizing: border-box;     /* aby se 2 rámečky vždy vešly i s paddingem/rámečkem */
+  flex: 0 0 100%;             /* mobil = 1 slide */
+  padding: .75rem;
+}
+@media (min-width:1020px){
+  .carousel .slide{ flex-basis: 50%; } /* desktop = 2 slidy vedle sebe */
+}
+.carousel .slide figure{
+  margin: 0;
+  border: 3px solid var(--frame);
+  border-radius: var(--slide-rad);
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+  background: #0b1220;
+  cursor: pointer;
+}
+.carousel .slide img{
+  width: 100%;
+  height: 58svh; max-height: 620px;   /* desktop výška */
+  object-fit: cover; display: block;
+}
+@media (max-width:768px){
+  .carousel .slide img{ height: 42svh; } /* mobil výška */
+}
+
+/* tečky */
+.carousel .dots{
+  display:flex; gap:.5rem; justify-content:center; align-items:center;
+  margin-top:.75rem;
+}
+.carousel .dots button{
+  width:10px;height:10px;border-radius:999px;border:0;
+  background:var(--dot);opacity:.7;cursor:pointer;
+}
+.carousel .dots button[aria-current="true"]{
+  background:var(--dot-active);opacity:1;transform:scale(1.1);
+}
+
+/* šipky – jen desktop */
+.carousel .nav{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between;
+  pointer-events:none;
+}
+.carousel .nav button{
+  pointer-events:auto; background:rgba(0,0,0,.45); color:#fff; border:0; border-radius:999px;
+  width:38px; height:38px; display:grid; place-items:center; cursor:pointer; margin:0 .5rem;
+}
+@media (max-width:1020px){ .carousel .nav{ display:none; } }
+
+/* Lightbox */
+.lightbox[hidden]{ display:none }
+.lightbox{
+  position: fixed; inset: 0; background: rgba(0,0,0,.85);
+  display: grid; place-items: center; z-index: 3000; padding: 1rem;
+}
+.lightbox img{
+  max-width: min(95vw, 1400px); max-height: 90svh;
+  border-radius: 10px; border: 2px solid var(--frame); box-shadow: 0 16px 36px rgba(0,0,0,.5);
+}
+.lightbox .close{
+  position: absolute; top: 12px; right: 12px; width: 42px; height: 42px; border-radius: 50%;
+  border: 0; background: rgba(255,255,255,.15); color: #fff; font-size: 1.2rem; cursor: pointer;
+}
+
+
+
+
+
+
+
