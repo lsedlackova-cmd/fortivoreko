@@ -13,25 +13,18 @@
   <style>
     :root {
       --accent: #00d0f0;
-      --header-bg: #0f172a; /* header tmavý */
+      --header-bg: #0f172a;
       --text-on-header: var(--accent);
       --header-h: 4.5rem;
-      --light-bg: #f3f4f6;  /* světle šedé pozadí pro všechny sekce */
+      --light-bg: #f3f4f6;
     }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family:
-        "Aptos",
-        "Inter",
-        "Segoe UI",
-        Roboto,
-        "Noto Sans",
-        "Helvetica Neue",
-        Arial,
-        "Apple Color Emoji","Segoe UI Emoji",
-        sans-serif;
-      color: #111; background: #fff;
+        "Aptos","Inter","Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
+      color: #333;
+      background: #fff;
     }
 
     main {
@@ -45,9 +38,20 @@
       scroll-snap-align: start;
       display: flex; align-items: center; justify-content: center;
       padding: 1rem 0 2rem 0;
-      background: var(--light-bg); /* všechny sekce světle šedé */
+      background: var(--light-bg);
     }
     .container { width: min(1100px,92vw); margin-inline: auto; }
+
+    /* Nadpisy všech sekcí i podsekcí */
+    h2, h3 {
+      margin: 0 0 1rem 0;
+      font: 600 1.6rem/1.2
+        "Aptos","Inter","Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      color: var(--accent);
+      text-align: left;
+    }
 
     /* DOMŮ – video */
     #domu { position: relative; min-height: auto; }
@@ -68,15 +72,8 @@
       section#onas { margin-top: 1rem; }
     }
 
-    /* Naše služby – nadpisy podsekcí (barva jako v headeru) */
+    /* Naše služby – wrapper a mezery */
     #nasesluzby .services-wrap { width:min(1100px,92vw); margin-inline:auto; }
-    #nasesluzby h3 {
-      margin: 0 0 1rem 0;
-      font: 600 1.6rem/1.2
-        "Aptos","Inter","Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
-      text-transform: uppercase; letter-spacing: .02em; color: var(--accent);
-      text-align: left;
-    }
     #nasesluzby .subsection { margin-bottom: 2.5rem; }
   </style>
 
@@ -197,6 +194,8 @@
   </main>
 </body>
 </html>
+
+
 
 
 
