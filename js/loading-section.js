@@ -56,13 +56,35 @@
     }
   }
 
+  /* ===== Načtení FOOTERU ===== */
+  async function loadFooter() {
+    const container = document.getElementById("site-footer");
+    if (!container) return; // placeholder chybí → nic neděláme
+    // pokud už je naplněný, neřeš
+    if (container.children.length) return;
+
+    try {
+      const html = await fetchHTML("/html/footer.html");
+      container.innerHTML = html;
+    } catch (err) {
+      console.error("Chyba při načítání footeru:", err);
+    }
+  }
+
   /* ===== Start ===== */
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", loadOnas, { once: true });
-  } else {
+  function start() {
     loadOnas();
+    loadFooter();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  } else {
+    start();
   }
 })();
+
+
 
 
 

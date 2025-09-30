@@ -73,7 +73,7 @@
     @media (max-width: 768px) {
       #domu { align-items: flex-start; padding-top: .5rem; min-height: auto; }
       .hero-media { max-width: 100%; padding: 0 .5rem; padding-top: 30px; }
-      section#onas { margin-top: O; }
+      section#onas { margin-top: 0; }
     }
 
     #nasesluzby .services-wrap { width:min(1100px,92vw); margin-inline:auto; }
@@ -87,6 +87,7 @@
   <link rel="stylesheet" href="/css/nasesluzby.css" />
   <link rel="stylesheet" href="/css/reference.css" />
   <link rel="stylesheet" href="/css/kontakt.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
 
   <!-- JS -->
   <script defer src="/js/header.js"></script>
@@ -103,6 +104,7 @@
   <div id="site-header"></div>
 
   <main id="app">
+    
     <!-- Domů -->
     <section id="domu" aria-label="Domů">
       <div class="container hero-media">
@@ -192,8 +194,12 @@
       </div>
     </section>
   </main>
+
+  <!-- Footer se načte dynamicky -->
+  <div id="site-footer"></div>
 </body>
 </html>
+
 
 
 
