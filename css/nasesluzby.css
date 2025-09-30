@@ -1,6 +1,5 @@
 :root{
   --accent:#00d0f0;
-  --frame:#0ea5b6;
   --dot:#93c5fd;
   --dot-active:#00d0f0;
   --slide-rad:12px;
@@ -12,35 +11,40 @@
   overflow: hidden;
   border-radius: var(--slide-rad);
 }
+
 .carousel .track{
   display: flex;
   transition: transform .6s ease;
   will-change: transform;
 }
+
 .carousel .slide{
-  box-sizing: border-box;     /* aby se 2 rámečky vždy vešly i s paddingem/rámečkem */
+  box-sizing: border-box;
   flex: 0 0 100%;             /* mobil = 1 slide */
   padding: .75rem;
 }
 @media (min-width:1020px){
   .carousel .slide{ flex-basis: 50%; } /* desktop = 2 slidy vedle sebe */
 }
+
+/* Kartička fotky – šedý stín místo modrého */
 .carousel .slide figure{
   margin: 0;
-  border: 3px solid var(--frame);
+  border: none;
   border-radius: var(--slide-rad);
   overflow: hidden;
-  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+  box-shadow: 0 0 40px rgba(0,0,0,.25);  /* šedý stín */
   background: #0b1220;
   cursor: pointer;
 }
+
 .carousel .slide img{
   width: 100%;
-  height: 58svh; max-height: 620px;   /* desktop výška */
+  height: 58svh; max-height: 620px;
   object-fit: cover; display: block;
 }
 @media (max-width:768px){
-  .carousel .slide img{ height: 42svh; } /* mobil výška */
+  .carousel .slide img{ height: 42svh; }
 }
 
 /* tečky */
@@ -67,7 +71,7 @@
 }
 @media (max-width:1020px){ .carousel .nav{ display:none; } }
 
-/* Lightbox */
+/* Lightbox – silnější šedý stín */
 .lightbox[hidden]{ display:none }
 .lightbox{
   position: fixed; inset: 0; background: rgba(0,0,0,.85);
@@ -75,12 +79,15 @@
 }
 .lightbox img{
   max-width: min(95vw, 1400px); max-height: 90svh;
-  border-radius: 10px; border: 2px solid var(--frame); box-shadow: 0 16px 36px rgba(0,0,0,.5);
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 0 50px rgba(0,0,0,.4);   /* tmavší šedý stín */
 }
 .lightbox .close{
   position: absolute; top: 12px; right: 12px; width: 42px; height: 42px; border-radius: 50%;
   border: 0; background: rgba(255,255,255,.15); color: #fff; font-size: 1.2rem; cursor: pointer;
 }
+
 
 
 
