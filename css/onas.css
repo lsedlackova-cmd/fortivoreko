@@ -41,15 +41,16 @@
   text-shadow: 0 1px 3px rgba(0,0,0,.12);
 }
 
-/* === Fotka v rámečku === */
+/* === Fotka se stínem místo rámečku === */
 .onas-photo {
   justify-self: center; /* fotka na střed ve svém sloupci */
 }
 
 .photo-frame {
-  border: 2px solid var(--accent);
+  border: none; /* odstraněn rámeček */
   border-radius: 12px;
-  box-shadow: 0 12px 28px rgba(0,0,0,.15);
+  /* stejný šedý stín jako video v sekci Domů */
+  box-shadow: 0 0 50px rgba(0,0,0,0.25);
   overflow: hidden;
   margin: 0;
   display: inline-block; /* rámeček se přizpůsobí obsahu */
@@ -109,6 +110,8 @@
     max-width: 400px;
   }
 }
+
+
 
 
 
