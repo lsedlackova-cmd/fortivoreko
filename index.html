@@ -54,11 +54,15 @@
     }
 
     /* DOMŮ – video */
-    #domu { position: relative; min-height: auto; }
+    #domu { position: relative; min-height: auto; padding-top: 80px; }
     .hero-media { width: 100%; max-width: 1000px; margin-inline: auto; position: relative; }
     .hero-media video {
-      width: 100%; aspect-ratio: 16/9; object-fit: cover;
-      border-radius: 12px; box-shadow: 0 12px 28px rgba(0,0,0,.15);
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 12px;
+      /* nový větší, měkký šedý stín */
+      box-shadow: 0 0 40px rgba(0,0,0,0.25);
     }
     .sound-toggle {
       position: absolute; bottom: 12px; right: 12px; z-index: 10;
@@ -68,18 +72,17 @@
     }
     @media (max-width: 768px) {
       #domu { align-items: flex-start; padding-top: .5rem; min-height: auto; }
-      .hero-media { max-width: 100%; padding: 0 .5rem; }
+      .hero-media { max-width: 100%; padding: 0 .5rem; padding-top: 30px; }
       section#onas { margin-top: 1rem; }
     }
 
-    /* Naše služby – wrapper a mezery */
     #nasesluzby .services-wrap { width:min(1100px,92vw); margin-inline:auto; }
     #nasesluzby .subsection { margin-bottom: 2.5rem; }
   </style>
 
   <!-- CSS -->
   <link rel="stylesheet" href="/css/header.css" />
-  <link rel="stylesheet" href="/css/domu.css" />
+  <!-- /css/domu.css pokud někdy vytvoříš -->
   <link rel="stylesheet" href="/css/onas.css" />
   <link rel="stylesheet" href="/css/nasesluzby.css" />
   <link rel="stylesheet" href="/css/reference.css" />
@@ -90,6 +93,7 @@
   <script defer src="/js/loading-section.js"></script>
   <script defer src="/js/video-sound.js"></script>
   <script defer src="/js/nasesluzby.js"></script>
+  <script defer src="/js/onas.js"></script>
 </head>
 <body>
   <div id="preloader" aria-hidden="true" hidden>
@@ -99,6 +103,7 @@
   <div id="site-header"></div>
 
   <main id="app">
+    <!-- Domů -->
     <section id="domu" aria-label="Domů">
       <div class="container hero-media">
         <video id="intro-video" src="/video/intro.mp4" autoplay muted loop playsinline></video>
@@ -106,14 +111,9 @@
       </div>
     </section>
 
-    <section id="onas" aria-label="O nás">
-      <div class="container">
-        <h2>O nás</h2>
-        <p>Krátké představení firmy. Obsah nahradíme textem a obrázky z <code>/img</code>.</p>
-      </div>
-    </section>
+    <!-- O nás se vloží dynamicky z html/onas.html sem (za #domu) -->
 
-    <!-- === NAŠE SLUŽBY – 3 podsekce s karuselem přímo na indexu === -->
+    <!-- Naše služby -->
     <section id="nasesluzby" aria-label="Naše služby">
       <div class="services-wrap">
         <!-- Historické fasády -->
@@ -194,6 +194,12 @@
   </main>
 </body>
 </html>
+
+
+
+
+
+
 
 
 

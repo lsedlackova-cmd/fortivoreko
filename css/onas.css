@@ -1,0 +1,125 @@
+#onas {
+  background: var(--light-bg);
+}
+
+/* Grid: text vlevo, fotka vpravo (desktop), mobil pod sebou */
+.onas-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.onas-text p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* === Statistika čísel === */
+.onas-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem; /* větší mezera mezi čísly */
+  margin-top: 1.5rem;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat .number {
+  font: 700 2.2rem/1 "Aptos","Inter","Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
+  color: var(--accent);
+  text-shadow: 0 2px 6px rgba(0,0,0,.15); /* šedý stín */
+}
+
+.stat .label {
+  margin-top: 0.4rem;
+  font-weight: 700;
+  color: #333;
+  text-shadow: 0 1px 3px rgba(0,0,0,.12);
+}
+
+/* === Fotka v rámečku === */
+.onas-photo {
+  justify-self: center; /* fotka na střed ve svém sloupci */
+}
+
+.photo-frame {
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.15);
+  overflow: hidden;
+  margin: 0;
+  display: inline-block; /* rámeček se přizpůsobí obsahu */
+}
+
+.photo-frame img {
+  display: block;   /* odstraní inline mezeru */
+  width: 100%;      /* fotka vyplní celý rámeček */
+  height: auto;     /* zachová poměr stran */
+  border: 0;
+}
+
+/* === Breakpointy === */
+
+/* Mobil ≤420px */
+@media (max-width: 420px) {
+  .onas-wrap {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .onas-stats {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .onas-photo {
+    justify-self: center;
+  }
+
+  .photo-frame {
+    max-width: 300px;
+  }
+}
+
+/* Tablet 421–768px */
+@media (min-width: 421px) and (max-width: 768px) {
+  .onas-wrap {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .photo-frame {
+    max-width: 350px;
+  }
+}
+
+/* Desktop 769+ */
+@media (min-width: 769px) {
+  .onas-wrap {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .photo-frame {
+    max-width: 400px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
