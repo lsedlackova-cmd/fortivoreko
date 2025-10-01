@@ -95,6 +95,12 @@
   .ref-card { transition: none; }
   .ref-card:hover { transform: none; }
 }
+/* Desktop: větší svislá mezera mezi řadami karet */
+@media (min-width: 900px) {
+  #reference .ref-grid {
+    row-gap: 3.5rem;   /* uprav klidně na 2.2–3.0rem podle oka */
+  }
+}
 
 
 
