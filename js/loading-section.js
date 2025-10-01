@@ -1,5 +1,4 @@
 (() => {
-  /* ===== PRELOADER (původní chování) ===== */
   const preloader = document.getElementById("preloader");
   const hide = () =>
     preloader
@@ -14,11 +13,9 @@
     } else {
       hide();
     }
-    // pojistka kdyby se animace nespustila
     setTimeout(() => { if (document.body.contains(preloader)) hide(); }, 2000);
   }
 
-  /* ===== Pomocné ===== */
   async function fetchHTML(url) {
     const res = await fetch(url, { cache: "no-cache" });
     if (!res.ok) throw new Error(`HTTP ${res.status} – ${url}`);
@@ -28,39 +25,29 @@
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
 
-  /* ===== Načtení sekce O nás ===== */
   async function loadOnas() {
     const app = document.getElementById("app");
     const domu = document.getElementById("domu");
     if (!app || !domu) return;
-
-    // nezdvojovat, pokud už je v DOM
     if (document.getElementById("onas")) return;
 
     try {
       const html = await fetchHTML("/html/onas.html");
       const temp = document.createElement("div");
       temp.innerHTML = html.trim();
-      const section = temp.firstElementChild; // <section id="onas">
-
+      const section = temp.firstElementChild;
       if (section) {
         insertAfter(section, domu);
-
-        // Dej vědět ostatním skriptům (onas.js), že je sekce připravena
-        document.dispatchEvent(
-          new CustomEvent("section:loaded", { detail: { id: "onas" } })
-        );
+        document.dispatchEvent(new CustomEvent("section:loaded", { detail: { id: "onas" } }));
       }
     } catch (err) {
       console.error("Chyba při načítání O nás:", err);
     }
   }
 
-  /* ===== Načtení FOOTERU ===== */
   async function loadFooter() {
     const container = document.getElementById("site-footer");
-    if (!container) return; // placeholder chybí → nic neděláme
-    // pokud už je naplněný, neřeš
+    if (!container) return;
     if (container.children.length) return;
 
     try {
@@ -71,10 +58,28 @@
     }
   }
 
-  /* ===== Start ===== */
+  async function loadReference() {
+    const container = document.getElementById("reference");
+    if (!container) return;
+    if (container.querySelector(".ref-grid")) return;
+
+    try {
+      const html = await fetchHTML("/html/reference.html");
+      container.innerHTML = html;
+      container.querySelectorAll("img").forEach(img => {
+        if (!img.hasAttribute("loading")) img.loading = "lazy";
+        if (!img.hasAttribute("decoding")) img.decoding = "async";
+      });
+      document.dispatchEvent(new CustomEvent("section:loaded", { detail: { id: "reference" } }));
+    } catch (err) {
+      console.error("Chyba při načítání Reference:", err);
+    }
+  }
+
   function start() {
     loadOnas();
     loadFooter();
+    loadReference();
   }
 
   if (document.readyState === "loading") {
@@ -83,6 +88,7 @@
     start();
   }
 })();
+
 
 
 

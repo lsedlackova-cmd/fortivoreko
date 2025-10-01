@@ -1,0 +1,102 @@
+:root {
+  --ref-gap: 1.25rem;
+  --ref-radius: 12px;
+  --ref-card-bg: #f8fafc;
+  --ref-border: #e5e7eb;
+  --ref-muted: #6b7280;
+}
+
+#reference { background: var(--light-bg, #f3f4f6); }
+#reference .container { width: min(1100px,92vw); margin-inline: auto; }
+#reference h2 { margin: 0 0 1rem 0; }
+
+.ref-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ref-gap);
+}
+@media (max-width: 768px) {
+  .ref-grid { grid-template-columns: 1fr; }
+}
+
+.ref-card {
+  background: var(--ref-card-bg);
+  border: 1px solid var(--ref-border);
+  border-radius: var(--ref-radius);
+  box-shadow: 0 0 50px rgba(0,0,0,0.4);
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-column-gap: 1rem;
+  transition: transform .15s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ref-card:hover { transform: translateY(-2px); }
+}
+
+.ref-thumb {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #e5e7eb;
+  margin-bottom: .5rem;
+}
+
+/* sloupec s fotkou + rok + místo */
+.ref-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 0.9rem;
+}
+.ref-year {
+  font-weight: 600;
+  margin-top: .25rem;
+  color: var(--accent);
+}
+.ref-location {
+  color: var(--muted, #555);
+  font-size: 0.85rem;
+}
+
+/* sloupec s textem */
+.ref-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ref-title {
+  margin: 0 0 .35rem 0;
+  font: 600 1.1rem/1.25 var(--font, "Aptos","Inter","Segoe UI",Roboto,Arial,sans-serif);
+  color: #333;
+}
+
+.ref-summary {
+  margin: 0 0 .75rem 0;
+  color: #333;
+  line-height: 1.45;
+}
+
+.ref-quote {
+  margin: 0 0 .5rem 0;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.ref-author {
+  color: #333;
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-card { transition: none; }
+  .ref-card:hover { transform: none; }
+}
+
+
+
+
+

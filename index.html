@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FORTIVO REKO</title>
 
+  <!-- SEO a meta (bezpečné doplnění) -->
+  <meta name="description" content="Rekonstrukce fasád, interiérů a koupelen. FORTIVO REKO – řemeslo s důrazem na detail.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:title" content="FORTIVO REKO">
+  <meta property="og:description" content="Rekonstrukce fasád, interiérů a koupelen.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.tvojedomena.cz/">
+  <meta property="og:image" content="https://www.tvojedomena.cz/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
   <!-- Webfont s latin-ext pro 100% diakritiku -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,6 +109,8 @@
   <script defer src="/js/video-sound.js"></script>
   <script defer src="/js/nasesluzby.js"></script>
   <script defer src="/js/onas.js"></script>
+  <!-- nový skript pro referenční karty -->
+  <script defer src="/js/reference.js"></script>
 </head>
 <body>
   <div id="preloader" aria-hidden="true" hidden>
@@ -108,8 +124,8 @@
     <!-- Domů -->
     <section id="domu" aria-label="Domů">
       <div class="container hero-media">
-        <video id="intro-video" src="/video/intro.mp4" autoplay muted loop playsinline></video>
-        <button class="sound-toggle" id="soundToggle" aria-label="Zapnout/vypnout zvuk">🔇</button>
+        <video id="intro-video" src="/video/intro.mp4" autoplay muted loop playsinline preload="metadata" poster="/img/intro-poster.jpg"></video>
+        <button class="sound-toggle" id="soundToggle" aria-label="Zapnout/vypnout zvuk" aria-pressed="false">🔇</button>
       </div>
     </section>
 
@@ -177,10 +193,11 @@
       </div>
     </section>
 
+    <!-- Reference – obsah se vloží z /html/reference.html (grid + karty) -->
     <section id="reference" aria-label="Reference">
       <div class="container">
         <h2>Reference</h2>
-        <p>Galerie a ukázky prací.</p>
+        <div class="ref-grid" id="refGrid" aria-live="polite"></div>
       </div>
     </section>
 
