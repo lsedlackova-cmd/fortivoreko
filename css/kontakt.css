@@ -1,0 +1,166 @@
+:root {
+  --accent: #00d0f0;
+  --card-bg: #f8fafc;
+  --card-brd: #e5e7eb;
+}
+
+#kontakt { background: var(--light-bg, #f3f4f6); }
+#kontakt .container { width: min(1100px,92vw); margin-inline: auto; }
+
+/* Rozvržení:
+   info  vcard
+   form  form
+*/
+.contact-wrap {
+  display: grid;
+  grid-template-areas:
+    "info vcard"
+    "form form";
+  grid-template-columns: 1fr 0.9fr;
+  gap: 1.25rem;
+  width: 100%;
+}
+@media (max-width: 900px) {
+  .contact-wrap {
+    grid-template-areas:
+      "info"
+      "vcard"
+      "form";
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-info,
+.contact-vcard,
+.contact-form {
+  background: var(--card-bg);
+  border: 1px solid var(--card-brd);
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.4);
+  padding: 1rem; /* výchozí (mobil) – desktop přepíšeme níže jen u .contact-form */
+}
+
+/* Umístění do gridu */
+.contact-info  { grid-area: info; }
+.contact-vcard { grid-area: vcard; align-self: start; }
+.contact-form  { grid-area: form; }
+
+/* Levý panel (firma) */
+.contact-info h3 {
+  margin: 0 0 .5rem 0;
+  font: 600 1.1rem/1.2 "Aptos","Inter","Segoe UI",Roboto,Arial,sans-serif;
+  color: #333;
+}
+.contact-list { list-style: none; padding: 0; margin: 0; }
+.contact-list li { margin: .35rem 0; color: #333; }
+.contact-list a { color: var(--accent); text-decoration: none; }
+.contact-list a:hover { text-decoration: underline; }
+
+/* Pravý panel (vCard) */
+.vcard-inner { display: grid; gap: .5rem; }
+.vcard-title {
+  font: 600 1rem/1.1 "Aptos","Inter","Segoe UI",Roboto,Arial,sans-serif;
+  color: #333;
+}
+.vcard-note { margin: 0; color: #333; }
+.btn-secondary {
+  display: inline-block;
+  background: #e5e7eb;
+  border: 1px solid #d1d5db;
+  color: #111827;
+  border-radius: 10px;
+  padding: .6rem .9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ===== Formulář – typografie a pole ===== */
+.contact-form { font-size: 0.95rem; }
+.field { display: grid; gap: .25rem; }
+.contact-form label { color: #333; font-weight: 600; font-size: 0.95rem; }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: .5rem .65rem;
+  font: 500 0.86rem/1.35 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #333;
+}
+input::placeholder,
+textarea::placeholder {
+  font-size: 0.86rem;
+  color: #6b7280;
+}
+input:focus, textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+textarea { resize: vertical; }
+
+/* drobné texty (vč. Zásad) */
+.fineprint { font-size: 0.9rem; }
+.checkbox { display: flex; align-items: flex-start; gap: .5rem; }
+.checkbox input { margin-top: .2rem; }
+.checkbox span { color: #333; }
+.checkbox a { color: var(--accent); font-size: 0.9rem; }
+
+/* Akce */
+.actions { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: #e5e7eb;
+  border: 1px solid #d1d5db;
+  color: var(--accent);
+  border-radius: 10px;
+  padding: .55rem .9rem;
+  font-weight: 700;
+  font-size: 0.95rem; /* stejné jako label */
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary:hover { filter: brightness(0.98); }
+.btn-primary:disabled { opacity: .7; cursor: not-allowed; }
+
+.btn-spinner {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid rgba(0,0,0,.25);
+  border-top-color: rgba(0,0,0,.8);
+  display: none;
+  animation: spin 800ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.form-status { min-height: 1.1em; color: #333; }
+.error { color: #b91c1c; min-height: 1em; }
+.hp { position: absolute; left: -9999px; top: -9999px; }
+
+/* ===== DESKTOP – ZMENŠIT JEN VNITŘNÍ PADDING PANELU FORMULÁŘE ===== */
+@media (min-width: 900px) {
+
+  /* rozložení formuláře 2+2 (beze změny mezer mezi poli) */
+  .contact-form form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: .75rem;
+    row-gap: .5rem;
+  }
+  .field--half { grid-column: span 1; }
+  .field--full { grid-column: 1 / -1; }
+  .checks, .actions { grid-column: 1 / -1; }
+
+  /* HLAVNÍ ÚPRAVA: menší okraj mezi rámečkem a obsahem formuláře */
+  .contact-form {
+    padding: .25rem .5rem !important; /* ↑↓ .25rem, ←→ .5rem */
+  }
+}
+
+
+
+

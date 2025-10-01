@@ -1,4 +1,5 @@
 (() => {
+  /* ===== PRELOADER ===== */
   const preloader = document.getElementById("preloader");
   const hide = () =>
     preloader
@@ -13,9 +14,11 @@
     } else {
       hide();
     }
+    // pojistka
     setTimeout(() => { if (document.body.contains(preloader)) hide(); }, 2000);
   }
 
+  /* ===== Helpers ===== */
   async function fetchHTML(url) {
     const res = await fetch(url, { cache: "no-cache" });
     if (!res.ok) throw new Error(`HTTP ${res.status} – ${url}`);
@@ -25,6 +28,7 @@
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
 
+  /* ===== O NÁS (dynamic) ===== */
   async function loadOnas() {
     const app = document.getElementById("app");
     const domu = document.getElementById("domu");
@@ -35,7 +39,7 @@
       const html = await fetchHTML("/html/onas.html");
       const temp = document.createElement("div");
       temp.innerHTML = html.trim();
-      const section = temp.firstElementChild;
+      const section = temp.firstElementChild; // <section id="onas">
       if (section) {
         insertAfter(section, domu);
         document.dispatchEvent(new CustomEvent("section:loaded", { detail: { id: "onas" } }));
@@ -45,6 +49,7 @@
     }
   }
 
+  /* ===== FOOTER (dynamic) ===== */
   async function loadFooter() {
     const container = document.getElementById("site-footer");
     if (!container) return;
@@ -58,6 +63,7 @@
     }
   }
 
+  /* ===== REFERENCE (dynamic) ===== */
   async function loadReference() {
     const container = document.getElementById("reference");
     if (!container) return;
@@ -76,10 +82,35 @@
     }
   }
 
+  /* ===== KONTAKT (dynamic) ===== */
+  async function loadKontakt() {
+    const container = document.getElementById("kontakt");
+    if (!container) return;
+    // nezdvojovat – pokud už je vložena .contact-wrap, nic nedělej
+    if (container.querySelector(".contact-wrap")) return;
+
+    try {
+      const html = await fetchHTML("/html/kontakt.html");
+      container.innerHTML = html;
+
+      // (rezervováno pro obrázky v budoucnu)
+      container.querySelectorAll("img").forEach(img => {
+        if (!img.hasAttribute("loading")) img.loading = "lazy";
+        if (!img.hasAttribute("decoding")) img.decoding = "async";
+      });
+
+      document.dispatchEvent(new CustomEvent("section:loaded", { detail: { id: "kontakt" } }));
+    } catch (err) {
+      console.error("Chyba při načítání Kontakt:", err);
+    }
+  }
+
+  /* ===== START ===== */
   function start() {
     loadOnas();
     loadFooter();
     loadReference();
+    loadKontakt();
   }
 
   if (document.readyState === "loading") {
@@ -88,6 +119,9 @@
     start();
   }
 })();
+
+
+
 
 
 

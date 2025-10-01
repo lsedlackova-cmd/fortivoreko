@@ -5,20 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FORTIVO REKO</title>
 
-  <!-- SEO a meta (bezpečné doplnění) -->
-  <meta name="description" content="Rekonstrukce fasád, interiérů a koupelen. FORTIVO REKO – řemeslo s důrazem na detail.">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0f172a">
-  <meta property="og:title" content="FORTIVO REKO">
-  <meta property="og:description" content="Rekonstrukce fasád, interiérů a koupelen.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.tvojedomena.cz/">
-  <meta property="og:image" content="https://www.tvojedomena.cz/og-cover.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-
   <!-- Webfont s latin-ext pro 100% diakritiku -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,6 +88,8 @@
   <link rel="stylesheet" href="/css/reference.css" />
   <link rel="stylesheet" href="/css/kontakt.css" />
   <link rel="stylesheet" href="/css/footer.css" />
+  <!-- Cookie lišta -->
+  <link rel="stylesheet" href="/css/cookie-consent.css" />
 
   <!-- JS -->
   <script defer src="/js/header.js"></script>
@@ -109,8 +97,10 @@
   <script defer src="/js/video-sound.js"></script>
   <script defer src="/js/nasesluzby.js"></script>
   <script defer src="/js/onas.js"></script>
-  <!-- nový skript pro referenční karty -->
   <script defer src="/js/reference.js"></script>
+  <script defer src="/js/kontakt.js"></script>
+  <!-- Cookie lišta (musí být po ostatních skriptech – neblokuje) -->
+  <script defer src="/js/cookie-consent.js"></script>
 </head>
 <body>
   <div id="preloader" aria-hidden="true" hidden>
@@ -193,7 +183,6 @@
       </div>
     </section>
 
-    <!-- Reference – obsah se vloží z /html/reference.html (grid + karty) -->
     <section id="reference" aria-label="Reference">
       <div class="container">
         <h2>Reference</h2>
@@ -201,21 +190,17 @@
       </div>
     </section>
 
-    <section id="kontakt" aria-label="Kontakt">
-      <div class="container">
-        <h2>Kontakt</h2>
-        <address>
-          <p>Email: <a href="mailto:info@fortivoreko.cz">info@fortivoreko.cz</a></p>
-          <p>Telefon: <a href="tel:+420123456789">+420 123 456 789</a></p>
-        </address>
-      </div>
-    </section>
+    <!-- Kontakt – obsah se dynamicky načte z /html/kontakt.html -->
+    <section id="kontakt" aria-label="Kontakt"></section>
   </main>
 
   <!-- Footer se načte dynamicky -->
   <div id="site-footer"></div>
 </body>
 </html>
+
+
+
 
 
 
