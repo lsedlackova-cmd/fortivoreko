@@ -21,7 +21,6 @@
     const submenuEl = header?.querySelector(".has-submenu .submenu");
     const subLinks = Array.from(header?.querySelectorAll("a[data-sub]") || []);
 
-    /* přesná pozice submenu na DESKTOPU: vlevo pod „Naše služby“ */
     const positionDesktopSubmenu = () => {
       const desktop = window.matchMedia("(min-width: 769px)").matches;
       if (!desktop || !submenuTrigger || !submenuEl || !header) return;
@@ -46,7 +45,6 @@
       if (submenuEl) submenuEl.removeAttribute("style");
     };
 
-    // burger
     toggle?.addEventListener("click", () => {
       const expanded = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(!expanded));
@@ -54,7 +52,6 @@
       closeSub();
     });
 
-    // top-level kotvy (#domu/#onas/#reference/#kontakt)
     links.forEach((a) =>
       a.addEventListener("click", (e) => {
         const href = a.getAttribute("href") || "";
@@ -71,14 +68,12 @@
       })
     );
 
-    // submenu otevřít POUZE klikem
     submenuTrigger?.addEventListener("click", (e) => {
       e.preventDefault();
       const isOpen = submenuLi?.getAttribute("data-open") === "true";
       isOpen ? closeSub() : openSub();
     });
 
-    // klik na položku submenu => scroll v rámci indexu a zavřít
     subLinks.forEach((s) =>
       s.addEventListener("click", (e) => {
         const href = s.getAttribute("href") || "";
@@ -95,7 +90,6 @@
       })
     );
 
-    // klik mimo header => zavřít
     document.addEventListener("click", (e) => {
       if (!header?.contains(e.target)) {
         closeSub();
@@ -104,7 +98,6 @@
       }
     });
 
-    // ESC => zavřít
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         closeSub();
@@ -113,14 +106,12 @@
       }
     });
 
-    // drž pozici při resize/scrollu jen když je otevřeno
     const syncWhenOpen = () => {
       if (submenuLi?.getAttribute("data-open") === "true") positionDesktopSubmenu();
     };
     window.addEventListener("resize", syncWhenOpen);
     window.addEventListener("scroll", syncWhenOpen, { passive: true });
 
-    // výchozí stav
     closeSub();
   };
 

@@ -12,7 +12,6 @@
     let index = 0;
     let timer;
 
-    // tečky
     dotsBox.innerHTML = '';
     const dots = slides.map((_, i) => {
       const b = document.createElement('button');
@@ -27,7 +26,7 @@
 
     const update = () => {
       const spv = slidesPerView();
-      const stepPct = 100 / spv; // 100% (mobil), 50% (desktop)
+      const stepPct = 100 / spv; 
       const clamp = Math.min(index, maxIndex());
       track.style.transform = `translateX(${-clamp * stepPct}%)`;
       dots.forEach((d, i) => d.setAttribute('aria-current', String(i === index)));
@@ -35,7 +34,7 @@
 
     const go = (i, user=false) => {
       index = i;
-      if (index > maxIndex()) index = 0;      // cyklování
+      if (index > maxIndex()) index = 0;     
       if (index < 0)          index = maxIndex();
       update();
       if (user) restart();

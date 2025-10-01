@@ -3,50 +3,142 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ochrana osobních údajů – FORTIVO REKO</title>
+  <title>Ochrana osobních údajů (GDPR) – FORTIVO REKO</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: "Inter", sans-serif; margin:0; padding:2rem; max-width:900px; }
-    h1 { font-size:1.8rem; margin-bottom:1rem; }
-    h2 { margin-top:1.5rem; font-size:1.2rem; }
-    p, li { line-height:1.7; }
+    :root{
+      --accent:#00d0f0;
+      --header-bg:#0f172a;
+      --light-bg:#f3f4f6;
+      --text:#333;
+      --brd:#e5e7eb;
+      --wmk-url:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='220'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%230f172a' opacity='0.05' font-family='Inter, Arial, sans-serif' font-size='28' font-weight='700' transform='rotate(-30 160 110)'%3EFORTIVO REKO%3C/text%3E%3C/svg%3E");
+    }
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Aptos","Inter","Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
+      color:var(--text); background:#fff;
+    }
+    body.watermark{
+      background-image:var(--wmk-url);
+      background-repeat:repeat;
+      background-size:320px 220px;
+      background-attachment:fixed;
+    }
+
+    .topbar{
+      position:sticky; top:0; z-index:1000;
+      background:var(--header-bg); color:var(--accent);
+      box-shadow:0 1px 10px rgba(0,0,0,.15);
+    }
+    .topbar .wrap{
+      width:min(1100px,92vw); margin-inline:auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.8rem 0; gap:1rem;
+    }
+    .brand{display:flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--accent)}
+    .brand img{width:66px; height:66px; object-fit:contain; display:block}
+    @media (min-width:900px){ .brand img{width:74px; height:74px} }
+    .page-tag{color:#cfefff; font-weight:600; opacity:.95; text-transform:uppercase; letter-spacing:.02em; font-size:.9rem}
+
+    main{width:min(900px,92vw); margin:32px auto 48px; position:relative; z-index:0}
+    h1,h2{
+      font:600 1.6rem/1.2 "Aptos","Inter","Segoe UI",Roboto,Arial,sans-serif;
+      text-transform:uppercase; letter-spacing:.02em; color:var(--accent); margin:0 0 1rem 0
+    }
+    h1{font-size:1.8rem}
+    h2{font-size:1.2rem; margin:1.5rem 0 .6rem}
+    p,li{line-height:1.7}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    ul{padding-left:1.1rem}
+    .muted{color:#555}
+
+    .back{
+      display:inline-block; margin-top:.75rem;
+      background:#eef2f7; border:1px solid var(--brd);
+      color:#111827; border-radius:10px; padding:.55rem .8rem; font-weight:600; text-decoration:none;
+    }
+    .back:hover{filter:brightness(.98)}
   </style>
 </head>
-<body>
-  <main>
+<body class="watermark">
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Zpět na domovskou stránku">
+        <img src="/img/FORTIVO%20REKO%20logo.png" alt="FORTIVO REKO – logo">
+      </a>
+      <div class="page-tag">GDPR</div>
+    </div>
+  </header>
+
+  <main role="main">
     <h1>Ochrana osobních údajů (GDPR)</h1>
 
-    <h2>Správce údajů</h2>
-    <p>FORTIVO REKO, IČO: …  
-    E-mail: <a href="mailto:info@fortivoreko.cz">info@fortivoreko.cz</a></p>
+    <h2>Správce osobních údajů</h2>
+    <p><strong>FORTIVO REKO s.r.o.</strong>, IČO: 236&nbsp;11&nbsp;731, Kaprova&nbsp;42/14, Staré&nbsp;Město, 110&nbsp;00 Praha&nbsp;1, e-mail: <a href="mailto:info@fortivoreko.cz">info@fortivoreko.cz</a>.</p>
 
     <h2>Jaké údaje zpracováváme</h2>
-    <p>Pokud vyplníte kontaktní formulář, zpracováváme údaje, které nám poskytnete – obvykle jméno, e-mail, telefon a obsah zprávy.</p>
+    <p>Údaje, které nám poskytnete prostřednictvím kontaktního formuláře nebo e-mailem/telefonicky, zejména:</p>
+    <ul>
+      <li>jméno a příjmení, e-mail, telefon,</li>
+      <li>místo realizace a text vaší poptávky,</li>
+      <li>případně další údaje, které nám dobrovolně sdělíte.</li>
+    </ul>
 
-    <h2>K čemu údaje používáme</h2>
-    <p>Údaje slouží pouze k vyřízení vaší poptávky a navazující komunikaci. Nepoužíváme je k marketingovým účelům bez vašeho souhlasu.</p>
-
-    <h2>Právní základ</h2>
-    <p>Zpracování je nezbytné pro jednání o uzavření smlouvy nebo její plnění (čl. 6 odst. 1 písm. b) GDPR). V některých případech se opíráme o náš oprávněný zájem na odpovědi na vaši poptávku.</p>
+    <h2>Účely a právní základy</h2>
+    <ul>
+      <li><strong>Vyřízení poptávky a komunikace</strong> – právní základ: plnění smlouvy / jednání o smlouvě (čl. 6 odst. 1 písm. b) GDPR).</li>
+      <li><strong>Evidence a ochrana práv</strong> – oprávněný zájem správce (čl. 6 odst. 1 písm. f) GDPR).</li>
+      <li><strong>Účetnictví a daně</strong> – splnění právní povinnosti (čl. 6 odst. 1 písm. c) GDPR).</li>
+      <li><strong>Analytické cookies</strong> – pouze s vaším souhlasem (čl. 6 odst. 1 písm. a) GDPR). Viz <a href="./cookies.html">Cookies</a>.</li>
+    </ul>
 
     <h2>Doba uchování</h2>
-    <p>Osobní údaje uchováváme jen po dobu nezbytnou k vyřízení poptávky. Pokud se stanete naším klientem, pak podle zákonných povinností (např. účetnictví).</p>
+    <ul>
+      <li><strong>Poptávky</strong>: obvykle do 12 měsíců od poslední komunikace (není-li dříve odvolán souhlas nebo vznesena námitka).</li>
+      <li><strong>Smluvní dokumentace a účetní doklady</strong>: dle zákonných lhůt (typicky 5–10 let).</li>
+      <li><strong>Cookies</strong>: viz <a href="./cookies.html">Cookies</a> (nezbytné po dobu nutnou, analytické obvykle 2–14 měsíců).</li>
+    </ul>
 
-    <h2>Předávání údajů</h2>
-    <p>Údaje nepředáváme třetím stranám, kromě nezbytných poskytovatelů služeb (např. webhosting).</p>
+    <h2>Příjemci a zpracovatelé</h2>
+    <p>Osobní údaje nepředáváme třetím stranám, kromě důvěryhodných zpracovatelů nutných pro provoz služeb (např. poskytovatel hostingu a e-mailu). Pokud jsou použity analytické nástroje (např. Google Analytics), mohou být údaje zpracovávány společností Google Ireland Limited. Aktuální seznam zpracovatelů poskytneme na vyžádání.</p>
+
+    <h2>Předávání do třetích zemí</h2>
+    <p>Standardně údaje nepředáváme mimo EU/EHP. Pokud je využita služba, která může data přenášet do třetích zemí, děje se tak na základě standardních smluvních doložek a dalších záruk.</p>
 
     <h2>Vaše práva</h2>
     <ul>
-      <li>právo na přístup k údajům,</li>
-      <li>právo na opravu nebo výmaz,</li>
-      <li>právo na omezení zpracování,</li>
-      <li>právo vznést námitku proti zpracování,</li>
-      <li>právo podat stížnost u Úřadu pro ochranu osobních údajů.</li>
+      <li>na přístup k osobním údajům,</li>
+      <li>na opravu či výmaz,</li>
+      <li>na omezení zpracování,</li>
+      <li>vznést námitku proti zpracování,</li>
+      <li>na přenositelnost údajů,</li>
+      <li>odvolat souhlas (pokud je zpracování založeno na souhlasu),</li>
+      <li>podat stížnost u dozorového úřadu – <a href="https://www.uoou.cz/" target="_blank" rel="noopener">ÚOOÚ</a>.</li>
     </ul>
 
-    <h2>Kontakt pro dotazy</h2>
-    <p>Pokud máte dotazy nebo chcete uplatnit svá práva, pište na  
-    <a href="mailto:info@fortivoreko.cz">info@fortivoreko.cz</a>.</p>
+    <h2>Jak uplatnit práva</h2>
+    <p>Napište nám na <a href="mailto:info@fortivoreko.cz">info@fortivoreko.cz</a>. Z bezpečnostních důvodů po vás můžeme požadovat doplňující údaje k ověření totožnosti.</p>
+
+    <h2>Bezpečnost</h2>
+    <p>Vaše údaje chráníme organizačními a technickými opatřeními. Přístup mají pouze poučené osoby.</p>
+
+    <p class="muted"><small>Poslední aktualizace: 1. 10. 2025</small></p>
+
+    <a class="back" href="/">← Zpět na web</a>
   </main>
 </body>
 </html>
+
+
+
+
+
+
 

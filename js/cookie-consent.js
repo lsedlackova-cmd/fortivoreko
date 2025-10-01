@@ -8,23 +8,19 @@
       console.warn("GA Measurement ID není nastaven. Analytics se nenačte.");
       return;
     }
-    // Načtení gtag JS
     const s = document.createElement("script");
     s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
     s.async = true;
     document.head.appendChild(s);
 
-    // Inicializace
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     window.gtag = gtag;
 
     gtag('js', new Date());
-    // O něco šetrnější nastavení
     gtag('config', GA_MEASUREMENT_ID, {
       allow_google_signals: false,
       allow_ad_personalization_signals: false
-      // případně: 'debug_mode': true
     });
   }
 
@@ -57,14 +53,11 @@
     if (banner) banner.remove();
   }
 
-  // Při načtení stránky
   const consent = localStorage.getItem(STORAGE_KEY);
   if (consent === "accepted") {
     loadGA();
   } else if (consent === "declined") {
-    // nic – respektujeme volbu
   } else {
-    // není uloženo – zobrazíme banner po načtení DOM
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", createBanner, { once: true });
     } else {

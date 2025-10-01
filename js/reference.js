@@ -46,7 +46,6 @@
     const art = document.createElement("article");
     art.className = "ref-card";
 
-    // levý sloupec: fotka, rok, místo
     const info = document.createElement("div");
     info.className = "ref-info";
 
@@ -69,7 +68,6 @@
 
     info.append(img, year, location);
 
-    // pravý sloupec: název, summary, citát, autor
     const content = document.createElement("div");
     content.className = "ref-content";
 
@@ -113,7 +111,6 @@
     document.addEventListener("DOMContentLoaded", renderGrid, { once: true });
   }
 })();
-// === Mobilní auto-rotátor referencí (bez karuselu) ===
 (() => {
   const MQ_MOBILE = window.matchMedia('(max-width: 768px)');
   const MQ_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -132,7 +129,6 @@
   }
 
   function start() {
-    // jen na mobilu a pokud uživatel nechce omezovat animace
     if (!MQ_MOBILE.matches || MQ_REDUCED.matches) return stop();
 
     cards = getCards();
@@ -140,11 +136,11 @@
 
     idx = 0;
     show(idx);
-    stop(); // pojistka
+    stop(); 
     timer = setInterval(() => {
       idx = (idx + 1) % cards.length;
       show(idx);
-    }, 5000); // interval přepínání (ms)
+    }, 5000); 
 
     document.addEventListener('visibilitychange', onVisibilityChange);
   }
@@ -163,29 +159,24 @@
     }
   }
 
-  // Reakce na změnu šířky (mobil <-> desktop)
   MQ_MOBILE.addEventListener?.('change', () => {
     stop();
     if (MQ_MOBILE.matches) {
       start();
     } else {
-      // Při návratu na desktop zrušíme "aktivní" třídu (grid zobrazí všechny)
       cards = getCards();
       cards.forEach(el => el.classList.remove('is-active'));
     }
   });
 
-  // Spuštění po načtení sekce „Reference“
   function bootIfReady() {
     if (document.getElementById('refGrid')) start();
   }
 
-  // Když načítáš sekci dynamicky, chytíme vlastní event
   document.addEventListener('section:loaded', (e) => {
     if (e?.detail?.id === 'reference') bootIfReady();
   });
 
-  // A pro jistotu i po DOMContentLoaded (kdyby to už bylo v DOM)
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', bootIfReady, { once: true });
   } else {

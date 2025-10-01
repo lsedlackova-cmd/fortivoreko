@@ -2,7 +2,6 @@
   <h2>Kontakt</h2>
 
   <div class="contact-wrap" id="contactWrap">
-    <!-- Levý horní panel: údaje o firmě -->
     <aside class="contact-info" aria-label="Kontaktní údaje společnosti">
       <h3>FORTIVO REKO s.r.o.</h3>
       <ul class="contact-list">
@@ -20,33 +19,26 @@
         <li><strong>Web:</strong><span class="value"><a href="https://fortivoreko.cz" target="_blank" rel="noopener">www.fortivoreko.cz</a></span></li>
       </ul>
 
-      <!-- Náhled(y) vizitky pod kontakty – jen vizuální, soubory dej do /img/ -->
       <div class="card-previews" aria-label="Náhled vizitky">
-        <!-- pokud chceš jen přední stranu, nech pouze první <img> -->
         <img src="/img/vizitka-front.png"
              alt="Vizitka FORTIVO REKO – přední strana"
              width="900" height="540" loading="lazy" decoding="async">
-        <!-- volitelně zadní strana (smaž, pokud ji nechceš) -->
         <img src="/img/vizitka-back.png"
              alt="Vizitka FORTIVO REKO – zadní strana"
              width="900" height="540" loading="lazy" decoding="async">
       </div>
     </aside>
 
-    <!-- Pravý horní panel: vCard karta -->
     <aside class="contact-vcard" aria-label="Vizitka ke stažení">
       <div class="vcard-inner">
         <div class="vcard-title">Vizitka</div>
         <p class="vcard-note">Uložte si naše kontakty do telefonu.</p>
-        <!-- Varianta A: generování vCard v JS -->
         <a href="#" id="vcardBtn" class="btn-secondary">Stáhnout vizitku (vCard)</a>
       </div>
     </aside>
 
-    <!-- Spodní řada: formulář přes celou šířku -->
     <section class="contact-form" aria-label="Kontaktní formulář">
       <form id="contactForm" novalidate>
-        <!-- Honeypot (skryté) -->
         <input type="text" name="hp" id="hp" autocomplete="off" tabindex="-1" aria-hidden="true" class="hp">
 
         <div class="field field--half" id="field-name">

@@ -1,23 +1,20 @@
-/* === Footer – sladěno s headerem === */
 .site-footer {
   background: var(--header-bg);
   color: var(--text-on-header);
   width: 100%;
 }
 
-/* Desktop rozvržení */
 .site-footer .footer-inner {
-  height: var(--header-h);                 /* desktop: stejná výška jako header */
+  height: var(--header-h);                 
   width: min(1100px, 92vw);
   margin-inline: auto;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;     /* vlevo | střed | vpravo */
+  grid-template-columns: 1fr auto 1fr;     
   align-items: center;
   gap: 1rem;
   padding: 0 1.25rem;
 }
 
-/* Všechny odkazy ve footeru */
 .site-footer a {
   color: var(--text-on-header);
   text-decoration: none;
@@ -26,7 +23,6 @@
 }
 .site-footer a:hover { opacity: .85; }
 
-/* Levý sloupec – sociální ikony nad sebou */
 .footer-left {
   display: flex;
   flex-direction: column;
@@ -40,7 +36,6 @@
 }
 .footer-left a:hover .social-icon { opacity: .8; }
 
-/* Střed – GDPR, Cookies nad sebou */
 .footer-center {
   display: flex;
   flex-direction: column;
@@ -48,7 +43,6 @@
   align-items: center;
 }
 
-/* Pravý sloupec – © + Made by Lucie */
 .footer-right {
   display: flex;
   flex-direction: column;
@@ -58,11 +52,10 @@
 }
 .footer-right .copyright,
 .footer-right .madeby {
-  color: var(--text-on-header);  /* stejná barva jako odkazy a zbytek footeru */
+  color: var(--text-on-header);  
   font-size: .9rem;
 }
 
-/* Spodní (mobilní) blok s textem uprostřed – skrytý na desktopu */
 .footer-bottom {
   display: none;
   text-align: center;
@@ -74,7 +67,6 @@
   font-size: .7rem;
 }
 
-/* === Mobil / malé šířky === */
 @media (max-width: 768px) {
   .site-footer .footer-inner {
     height: auto;                 
@@ -83,21 +75,17 @@
     gap: 1rem;
   }
 
-  /* Levý sloupec (ikony vlevo) */
   .footer-left { 
     align-items: flex-start; 
   }
 
-  /* Střed (GDPR + Cookies vpravo) s odsazením od kraje */
   .footer-center { 
     align-items: flex-end; 
-    padding-right: 1rem; /* stejné odsazení jako dropdown v headeru */
+    padding-right: 1rem; 
   }
 
-  /* Desktopový pravý blok schovat */
   .footer-right { display: none; }
 
-  /* Dole uprostřed text (mobilní) */
   .footer-bottom { display: block; }
 }
 

@@ -2,7 +2,6 @@
   background: var(--light-bg);
 }
 
-/* Grid: text vlevo, fotka vpravo (desktop), mobil pod sebou */
 .onas-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -16,11 +15,10 @@
   color: #333;
 }
 
-/* === Statistika čísel === */
 .onas-stats {
   display: flex;
   justify-content: center;
-  gap: 4rem; /* větší mezera mezi čísly */
+  gap: 4rem; 
   margin-top: 1.5rem;
 }
 
@@ -31,7 +29,7 @@
 .stat .number {
   font: 700 2.2rem/1 "Aptos","Inter","Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
   color: var(--accent);
-  text-shadow: 0 2px 6px rgba(0,0,0,.15); /* šedý stín */
+  text-shadow: 0 2px 6px rgba(0,0,0,.15); 
 }
 
 .stat .label {
@@ -41,31 +39,26 @@
   text-shadow: 0 1px 3px rgba(0,0,0,.12);
 }
 
-/* === Fotka se stínem místo rámečku === */
 .onas-photo {
-  justify-self: center; /* fotka na střed ve svém sloupci */
+  justify-self: center; 
 }
 
 .photo-frame {
-  border: none; /* odstraněn rámeček */
+  border: none; 
   border-radius: 12px;
-  /* stejný šedý stín jako video v sekci Domů */
   box-shadow: 0 0 50px rgba(0,0,0,0.25);
   overflow: hidden;
   margin: 0;
-  display: inline-block; /* rámeček se přizpůsobí obsahu */
+  display: inline-block; 
 }
 
 .photo-frame img {
-  display: block;   /* odstraní inline mezeru */
-  width: 100%;      /* fotka vyplní celý rámeček */
-  height: auto;     /* zachová poměr stran */
+  display: block;   
+  width: 100%;      
+  height: auto;     
   border: 0;
 }
 
-/* === Breakpointy === */
-
-/* Mobil ≤420px */
 @media (max-width: 420px) {
   .onas-wrap {
     grid-template-columns: 1fr;
@@ -87,7 +80,6 @@
   }
 }
 
-/* Tablet 421–768px */
 @media (min-width: 421px) and (max-width: 768px) {
   .onas-wrap {
     grid-template-columns: 1fr 1fr;
@@ -99,7 +91,6 @@
   }
 }
 
-/* Desktop 769+ */
 @media (min-width: 769px) {
   .onas-wrap {
     grid-template-columns: 1fr 1fr;

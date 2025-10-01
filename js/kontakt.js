@@ -1,5 +1,4 @@
 (() => {
-  // === Firma – jeden zdroj pravdy pro vCard i e-mail ===
   const COMPANY = {
     org: "FORTIVO REKO s.r.o.",
     ico: "236 11 731",
@@ -13,16 +12,15 @@
     url: "https://fortivoreko.cz"
   };
 
-  // === vCard 3.0 – CRLF řádkování kvůli kompatibilitě (iOS/Windows) ===
   function buildVCard(c) {
     const adr = [
-      "",                 // PO Box
-      c.district || "",   // Extended (čtvrť)
-      c.street || "",     // Street
-      c.city || "",       // Locality (město)
-      "",                 // Region
-      c.postcode || "",   // PostalCode
-      c.country || ""     // Country
+      "",                 
+      c.district || "",   
+      c.street || "",     
+      c.city || "",       
+      "",                 
+      c.postcode || "",   
+      c.country || ""    
     ].join(";");
 
     const lines = [
@@ -64,7 +62,6 @@
     });
   }
 
-  // === Kontaktní formulář – validace + mailto (bez backendu) ===
   function initForm(root = document) {
     const form = root.getElementById("contactForm");
     if (!form) return;
@@ -78,7 +75,6 @@
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      // honeypot
       const hp = form.querySelector("#hp")?.value.trim();
       if (hp) return;
 
@@ -122,7 +118,7 @@
       const params = new URLSearchParams();
       params.set("subject", subject);
       params.set("body", lines.join("\n"));
-      if (copy && emailOk) params.set("cc", email); // kopie odesílateli jen pokud chce
+      if (copy && emailOk) params.set("cc", email); 
 
       const mailtoUrl = `mailto:${encodeURIComponent(to)}?${params.toString()}`;
       statusEl.textContent = "Otevírám e-mail s předvyplněnou zprávou…";
@@ -130,7 +126,6 @@
     });
   }
 
-  // Init – při přímém načtení
   const boot = () => { initVCard(document); initForm(document); };
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot, { once: true });
@@ -138,7 +133,6 @@
     boot();
   }
 
-  // Init – pokud sekci vkládáš dynamicky (loader)
   document.addEventListener("section:loaded", (ev) => {
     if (ev?.detail?.id === "kontakt") {
       const root = document.getElementById("kontakt") || document;

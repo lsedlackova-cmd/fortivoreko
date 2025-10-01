@@ -1,5 +1,3 @@
-// Animace čísel (od 0 do cílové hodnoty) při zobrazení sekce O nás
-
 (function () {
   function animateNumber(el, target, duration = 1500) {
     const start = 0;
@@ -43,7 +41,6 @@
 
   document.addEventListener('DOMContentLoaded', initOnas);
 
-  // pokud se sekce načte dynamicky
   document.addEventListener('section:loaded', (e) => {
     if (e.detail && e.detail.id === 'onas') {
       initOnas();

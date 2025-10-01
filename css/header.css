@@ -15,7 +15,6 @@ body{
   color:#333;background:#fff;
 }
 
-/* Header */
 .site-header{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   height:var(--header-h);
@@ -51,7 +50,6 @@ body{
 .submenu li{list-style:none}
 .submenu a{display:block;padding:.45rem .6rem;text-align:left}
 
-/* Mobil */
 .nav-toggle{display:none;background:transparent;border:0;color:var(--text-on-header);font-size:1.5rem}
 @media(max-width:768px){
   .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;margin-left:auto}
@@ -74,7 +72,6 @@ body{
   .has-submenu[data-open="true"] .submenu{display:block !important}
 }
 
-/* Preloader */
 #preloader[hidden]{display:none}
 #preloader{position:fixed;inset:0;background:#0b1220;display:grid;place-items:center;z-index:2000}
 #preloader .spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.25);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
