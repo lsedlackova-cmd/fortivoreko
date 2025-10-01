@@ -1,125 +1,152 @@
 (() => {
-  let form, statusBox, submitBtn, btnText, btnSpinner;
-  let formShownAt = Date.now(); // pro časovou pojistku (≥ 2s)
+  // === Firma – jeden zdroj pravdy pro vCard i e-mail ===
+  const COMPANY = {
+    org: "FORTIVO REKO s.r.o.",
+    ico: "236 11 731",
+    street: "Kaprova 42/14",
+    district: "Staré Město",
+    city: "Praha 1",
+    postcode: "110 00",
+    country: "Česká republika",
+    email: "info@fortivoreko.cz",
+    phone: "+420 777 087 650",
+    url: "https://fortivoreko.cz"
+  };
 
-  function qs(s, el = document) { return el.querySelector(s); }
+  // === vCard 3.0 – CRLF řádkování kvůli kompatibilitě (iOS/Windows) ===
+  function buildVCard(c) {
+    const adr = [
+      "",                 // PO Box
+      c.district || "",   // Extended (čtvrť)
+      c.street || "",     // Street
+      c.city || "",       // Locality (město)
+      "",                 // Region
+      c.postcode || "",   // PostalCode
+      c.country || ""     // Country
+    ].join(";");
 
-  function setSubmitting(is) {
-    submitBtn.disabled = is;
-    btnSpinner.style.display = is ? "inline-block" : "none";
-    btnText.textContent = is ? "Odesílám…" : "Odeslat zprávu";
+    const lines = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      `N:;${c.org};;;`,
+      `FN:${c.org}`,
+      `ORG:${c.org}`,
+      c.ico ? `NOTE:IČO ${c.ico}` : null,
+      `ADR;TYPE=WORK:${adr}`,
+      `EMAIL;TYPE=INTERNET,PREF:${c.email}`,
+      c.phone ? `TEL;TYPE=WORK,VOICE:${c.phone}` : null,
+      `URL:${c.url}`,
+      "END:VCARD"
+    ].filter(Boolean);
+
+    return lines.join("\r\n");
   }
 
-  function setFieldError(id, msg) {
-    const el = qs(`#err-${id}`);
-    if (el) el.textContent = msg || "";
+  function downloadVCard() {
+    const vcf = buildVCard(COMPANY);
+    const blob = new Blob([vcf], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "FORTIVO-REKO.vcf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   }
 
-  function clearErrors() {
-    ["name","email","phone","place","message","consent"].forEach(f => setFieldError(f, ""));
-    statusBox.textContent = "";
+  function initVCard(root = document) {
+    const btn = root.querySelector("#vcardBtn");
+    if (!btn) return;
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      downloadVCard();
+    });
   }
 
-  function validate() {
-    let ok = true;
-    const name = qs("#name").value.trim();
-    const email = qs("#email").value.trim();
-    const phone = qs("#phone").value.trim();
-    const place = qs("#place").value.trim();
-    const message = qs("#message").value.trim();
-    const consent = qs("#consent").checked;
-
-    if (name.length < 3) { setFieldError("name", "Zadejte prosím jméno a příjmení."); ok = false; }
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!emailOk) { setFieldError("email", "Zadejte platný e-mail."); ok = false; }
-    if (phone && phone.length < 6) { setFieldError("phone", "Zkontrolujte prosím telefon."); ok = false; }
-    if (place.length < 2) { setFieldError("place", "Uveďte prosím místo realizace."); ok = false; }
-    if (!message) { setFieldError("message", "Napište prosím krátkou zprávu."); ok = false; }
-    if (!consent) { setFieldError("consent", "Pro odeslání je nutný souhlas se zpracováním."); ok = false; }
-
-    // antispam – honeypot + časová pojistka (2 s)
-    const hp = qs("#hp").value.trim();
-    if (hp) { ok = false; statusBox.textContent = "Odeslání bylo zablokováno (antispam)."; }
-    if (Date.now() - formShownAt < 2000) { ok = false; statusBox.textContent = "Počkejte prosím chvilku a zkuste to znovu."; }
-
-    return ok;
-  }
-
-  async function onSubmit(e) {
-    e.preventDefault();
-    clearErrors();
-    if (!validate()) return;
-
-    const payload = {
-      name: qs("#name").value.trim(),
-      email: qs("#email").value.trim(),
-      phone: qs("#phone").value.trim(),
-      place: qs("#place").value.trim(),
-      message: qs("#message").value.trim(),
-      copy: qs("#copy").checked,
-      consent: qs("#consent").checked,
-      hp: qs("#hp").value.trim(),
-      ts: Math.floor(formShownAt / 1000)
-    };
-
-    try {
-      setSubmitting(true);
-      const res = await fetch("/api/contact.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok && data.ok) {
-        form.reset();
-        statusBox.textContent = "Děkujeme, zpráva byla odeslána. Ozveme se vám.";
-      } else if (data && data.error === "validation" && data.fields) {
-        Object.entries(data.fields).forEach(([k, v]) => setFieldError(k, v));
-        statusBox.textContent = "Opravte prosím zvýrazněné chyby a zkuste to znovu.";
-      } else if (data && data.error === "antispam") {
-        statusBox.textContent = "Odeslání bylo zablokováno (antispam).";
-      } else {
-        statusBox.textContent = "Omlouváme se, odeslání se nezdařilo. Zkuste to prosím znovu, nebo napište na info@fortivoreko.cz.";
-      }
-    } catch (err) {
-      statusBox.textContent = "Omlouváme se, odeslání se nezdařilo. Zkuste to prosím znovu, nebo napište na info@fortivoreko.cz.";
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  function wireUp() {
-    form = qs("#contactForm");
+  // === Kontaktní formulář – validace + mailto (bez backendu) ===
+  function initForm(root = document) {
+    const form = root.getElementById("contactForm");
     if (!form) return;
 
-    statusBox = qs("#formStatus");
-    submitBtn = qs("#submitBtn");
-    btnText = qs("#submitBtn .btn-text");
-    btnSpinner = qs("#submitBtn .btn-spinner");
-    formShownAt = Date.now();
+    const statusEl = form.querySelector("#formStatus");
+    const get = (id) => form.querySelector(id);
 
-    // živá validace
-    ["name","email","phone","place","message","consent"].forEach(id => {
-      const el = qs(`#${id}`);
-      if (!el) return;
-      el.addEventListener("input", () => setFieldError(id, ""));
-      if (el.type === "checkbox") el.addEventListener("change", () => setFieldError(id, ""));
+    const setErr = (id, msg) => { const el = get(id); if (el) el.textContent = msg || ""; };
+    const clearErrs = () => form.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // honeypot
+      const hp = form.querySelector("#hp")?.value.trim();
+      if (hp) return;
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const phone = form.phone.value.trim();
+      const place = form.place.value.trim();
+      const message = form.message.value.trim();
+      const consent = form.consent.checked;
+      const copy = form.copy.checked;
+
+      clearErrs();
+      let ok = true;
+
+      if (name.length < 2) { setErr("#err-name", "Zadejte jméno a příjmení."); ok = false; }
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!emailOk) { setErr("#err-email", "Zadejte platný e-mail."); ok = false; }
+      if (!place) { setErr("#err-place", "Zadejte místo realizace."); ok = false; }
+      if (!message) { setErr("#err-message", "Napište zprávu."); ok = false; }
+      if (!consent) { setErr("#err-consent", "Bez souhlasu nelze odeslat."); ok = false; }
+
+      if (!ok) { statusEl.textContent = ""; return; }
+
+      const to = COMPANY.email;
+      const subject = `Poptávka z webu – ${name}${place ? " (" + place + ")" : ""}`;
+
+      const lines = [
+        `Jméno a příjmení: ${name}`,
+        `E-mail: ${email}`,
+        phone ? `Telefon: ${phone}` : null,
+        `Místo realizace: ${place}`,
+        "",
+        "Zpráva:",
+        message,
+        "",
+        `Souhlas se zpracováním: ano`,
+        `Datum: ${new Date().toLocaleString("cs-CZ")}`,
+        `Zdroj: ${location.href}`
+      ].filter(Boolean);
+
+      const params = new URLSearchParams();
+      params.set("subject", subject);
+      params.set("body", lines.join("\n"));
+      if (copy && emailOk) params.set("cc", email); // kopie odesílateli jen pokud chce
+
+      const mailtoUrl = `mailto:${encodeURIComponent(to)}?${params.toString()}`;
+      statusEl.textContent = "Otevírám e-mail s předvyplněnou zprávou…";
+      setTimeout(() => { window.location.href = mailtoUrl; }, 50);
     });
-
-    form.addEventListener("submit", onSubmit);
   }
 
-  document.addEventListener("section:loaded", (e) => {
-    if (e?.detail?.id === "kontakt") wireUp();
-  });
-
-  if (document.readyState !== "loading") {
-    wireUp();
+  // Init – při přímém načtení
+  const boot = () => { initVCard(document); initForm(document); };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
   } else {
-    document.addEventListener("DOMContentLoaded", wireUp, { once: true });
+    boot();
   }
+
+  // Init – pokud sekci vkládáš dynamicky (loader)
+  document.addEventListener("section:loaded", (ev) => {
+    if (ev?.detail?.id === "kontakt") {
+      const root = document.getElementById("kontakt") || document;
+      initVCard(root);
+      initForm(root);
+    }
+  });
 })();
+
 
 

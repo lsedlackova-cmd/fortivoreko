@@ -7,29 +7,19 @@
 #kontakt { background: var(--light-bg, #f3f4f6); }
 #kontakt .container { width: min(1100px,92vw); margin-inline: auto; }
 
-/* Rozvržení:
-   info  vcard
-   form  form
-*/
+/* === GRID OBECNĚ (mobile-first) === */
 .contact-wrap {
   display: grid;
   grid-template-areas:
-    "info vcard"
-    "form form";
-  grid-template-columns: 1fr 0.9fr;
-  gap: 1.25rem;
+    "info"
+    "vcard"
+    "form";
+  grid-template-columns: 1fr;
+  gap: 1rem;
   width: 100%;
 }
-@media (max-width: 900px) {
-  .contact-wrap {
-    grid-template-areas:
-      "info"
-      "vcard"
-      "form";
-    grid-template-columns: 1fr;
-  }
-}
 
+/* Panely: stejný rámeček a padding */
 .contact-info,
 .contact-vcard,
 .contact-form {
@@ -37,12 +27,12 @@
   border: 1px solid var(--card-brd);
   border-radius: 12px;
   box-shadow: 0 0 50px rgba(0,0,0,0.4);
-  padding: 1rem; /* výchozí (mobil) – desktop přepíšeme níže jen u .contact-form */
+  padding: 1rem;
 }
 
 /* Umístění do gridu */
 .contact-info  { grid-area: info; }
-.contact-vcard { grid-area: vcard; align-self: start; }
+.contact-vcard { grid-area: vcard; }
 .contact-form  { grid-area: form; }
 
 /* Levý panel (firma) */
@@ -50,11 +40,44 @@
   margin: 0 0 .5rem 0;
   font: 600 1.1rem/1.2 "Aptos","Inter","Segoe UI",Roboto,Arial,sans-serif;
   color: #333;
+  text-transform: none; /* 's.r.o.' malými písmeny */
 }
 .contact-list { list-style: none; padding: 0; margin: 0; }
 .contact-list li { margin: .35rem 0; color: #333; }
 .contact-list a { color: var(--accent); text-decoration: none; }
 .contact-list a:hover { text-decoration: underline; }
+
+/* Dvousloupcové zarovnání label : hodnota */
+#kontakt .contact-list li {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr; /* label | hodnota */
+  column-gap: .5rem;
+  align-items: start;
+}
+#kontakt .contact-list li > strong {
+  grid-column: 1;
+  white-space: nowrap;
+}
+#kontakt .contact-list li > .value {
+  grid-column: 2;
+  display: block;
+}
+#kontakt .contact-list .value a { color: var(--accent); }
+
+/* Náhled(y) vizitky pod kontakty */
+.card-previews {
+  margin-top: 1rem;  /* mobilní rozestup pod „Web“ */
+  display: none;     /* mobil: skryté */
+}
+.card-previews img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #fff;
+  border: 1px solid var(--card-brd);
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.4);
+}
 
 /* Pravý panel (vCard) */
 .vcard-inner { display: grid; gap: .5rem; }
@@ -141,25 +164,96 @@ textarea { resize: vertical; }
 .error { color: #b91c1c; min-height: 1em; }
 .hp { position: absolute; left: -9999px; top: -9999px; }
 
-/* ===== DESKTOP – ZMENŠIT JEN VNITŘNÍ PADDING PANELU FORMULÁŘE ===== */
+/* === DESKTOP (≥900px) === */
 @media (min-width: 900px) {
+  /* Rozvržení: vlevo info + vCard pod sebou, vpravo formulář (přes 2 řádky) */
+  .contact-wrap {
+    grid-template-areas:
+      "info  form"
+      "vcard form";
+    grid-template-columns: 1fr 1.1fr;
+    column-gap: 1.25rem;
+    row-gap: .8rem;          /* menší mezera mezi „Kontakty“ a „vCard“ */
+    align-items: stretch;
+  }
 
-  /* rozložení formuláře 2+2 (beze změny mezer mezi poli) */
+  /* Jemně větší rozestupy v seznamu + vizitky víc dolů */
+  #kontakt .contact-list li + li { margin-top: 1rem; }
+
+  .card-previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: .75rem;
+    align-items: start;
+    margin-top: 1.25rem;    /* větší rozestup pod „Web“ */
+  }
+
+  /* Kontakty dle obsahu (nezachytávej celou výšku řádku) */
+  .contact-info { align-self: start; }
+
+  /* vCard natáhni, ať lícuje dole s formulářem */
+  .contact-vcard {
+    align-self: stretch;
+    display: flex;
+  }
+  .contact-vcard .vcard-inner {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    width: 100%;
+  }
+  .contact-vcard .btn-secondary { margin-top: auto; align-self: start; }
+
+  /* Formulář – jeden sloupec, kompaktní svislé mezery */
   .contact-form form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: .75rem;
-    row-gap: .5rem;
+    grid-template-columns: 1fr;
+    row-gap: .6rem;
+    margin: 0;
   }
-  .field--half { grid-column: span 1; }
+  .field--half,
   .field--full { grid-column: 1 / -1; }
   .checks, .actions { grid-column: 1 / -1; }
 
-  /* HLAVNÍ ÚPRAVA: menší okraj mezi rámečkem a obsahem formuláře */
-  .contact-form {
-    padding: .25rem .5rem !important; /* ↑↓ .25rem, ←→ .5rem */
+  /* Sjednocení TOP/BOTTOM padding všech tří karet (Kontakty, vCard, Form) */
+  #kontakt .contact-info,
+  #kontakt .contact-vcard,
+  #kontakt .contact-form {
+    padding-block: 1.25rem !important; /* klidně dolaď na 1.1–1.5rem */
+  }
+
+  /* Na užších desktopech / větší text – label sloupec o chlup menší */
+  @media (max-width: 1200px) {
+    #kontakt .contact-list li { grid-template-columns: 7rem 1fr; }
   }
 }
+
+/* Na úzkých displejích zúžíme label sloupec, ať se to hezky láme */
+@media (max-width: 480px) {
+  #kontakt .contact-list li { grid-template-columns: 6.25rem 1fr; }
+}
+/* Větší mezera nad tlačítkem Odeslat (mobil i desktop) */
+#kontakt .contact-form .actions {
+  margin-top: 1.1rem;   /* ↑ uprav podle oka */
+}
+
+/* Na desktopu klidně o chloupek víc */
+@media (min-width: 900px) {
+  #kontakt .contact-form .actions {
+    margin-top: 1.5rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,12 +6,31 @@
     <aside class="contact-info" aria-label="Kontaktní údaje společnosti">
       <h3>FORTIVO REKO s.r.o.</h3>
       <ul class="contact-list">
-        <li><strong>IČO:</strong> 236 11 731</li>
-        <li><strong>Adresa:</strong><br>Kaprova 42/14<br>Staré Město<br>110 00 Praha 1</li>
-        <li><strong>E-mail:</strong> <a href="mailto:info@fortivoreko.cz">info@fortivoreko.cz</a></li>
-        <li><strong>Telefon:</strong> <a href="tel:">+420 777 087 650</a></li>
-        <li><strong>Web:</strong> <a href="https://fortivoreko.cz" target="_blank" rel="noopener">fortivoreko.cz</a></li>
+        <li><strong>IČO:</strong><span class="value">236 11 731</span></li>
+        <li>
+          <strong>Adresa:</strong>
+          <span class="value">
+            Kaprova 42/14<br>
+            Staré Město<br>
+            110 00 Praha 1
+          </span>
+        </li>
+        <li><strong>E-mail:</strong><span class="value"><a href="mailto:info@fortivoreko.cz">info@fortivoreko.cz</a></span></li>
+        <li><strong>Telefon:</strong><span class="value"><a href="tel:+420777087650">+420&nbsp;777&nbsp;087&nbsp;650</a></span></li>
+        <li><strong>Web:</strong><span class="value"><a href="https://fortivoreko.cz" target="_blank" rel="noopener">www.fortivoreko.cz</a></span></li>
       </ul>
+
+      <!-- Náhled(y) vizitky pod kontakty – jen vizuální, soubory dej do /img/ -->
+      <div class="card-previews" aria-label="Náhled vizitky">
+        <!-- pokud chceš jen přední stranu, nech pouze první <img> -->
+        <img src="/img/vizitka-front.png"
+             alt="Vizitka FORTIVO REKO – přední strana"
+             width="900" height="540" loading="lazy" decoding="async">
+        <!-- volitelně zadní strana (smaž, pokud ji nechceš) -->
+        <img src="/img/vizitka-back.png"
+             alt="Vizitka FORTIVO REKO – zadní strana"
+             width="900" height="540" loading="lazy" decoding="async">
+      </div>
     </aside>
 
     <!-- Pravý horní panel: vCard karta -->
@@ -19,7 +38,8 @@
       <div class="vcard-inner">
         <div class="vcard-title">Vizitka</div>
         <p class="vcard-note">Uložte si naše kontakty do telefonu.</p>
-        <a class="btn-secondary" href="/download/fortivo-reko.vcf">Stáhnout vizitku (vCard)</a>
+        <!-- Varianta A: generování vCard v JS -->
+        <a href="#" id="vcardBtn" class="btn-secondary">Stáhnout vizitku (vCard)</a>
       </div>
     </aside>
 
@@ -85,6 +105,9 @@
     </section>
   </div>
 </div>
+
+
+
 
 
 
