@@ -10,6 +10,7 @@
 #reference .container { width: min(1100px,92vw); margin-inline: auto; }
 #reference h2 { margin: 0 0 1rem 0; }
 
+/* GRID */
 .ref-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -19,6 +20,7 @@
   .ref-grid { grid-template-columns: 1fr; }
 }
 
+/* KARTA (desktop výchozí) */
 .ref-card {
   background: var(--ref-card-bg);
   border: 1px solid var(--ref-border);
@@ -26,15 +28,15 @@
   box-shadow: 0 0 50px rgba(0,0,0,0.4);
   padding: 1rem;
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 100px 1fr; /* foto vlevo, obsah vpravo */
   grid-column-gap: 1rem;
   transition: transform .15s ease;
 }
-
 @media (hover: hover) and (pointer: fine) {
   .ref-card:hover { transform: translateY(-2px); }
 }
 
+/* FOTO (desktop) */
 .ref-thumb {
   width: 100px;
   height: 100px;
@@ -44,7 +46,7 @@
   margin-bottom: .5rem;
 }
 
-/* sloupec s fotkou + rok + místo */
+/* LEVÝ sloupec: foto + rok + místo (desktop) */
 .ref-info {
   display: flex;
   flex-direction: column;
@@ -57,11 +59,11 @@
   color: var(--accent);
 }
 .ref-location {
-  color: var(--muted, #555);
+  color: var(--ref-muted);
   font-size: 0.85rem;
 }
 
-/* sloupec s textem */
+/* PRAVÝ sloupec: text */
 .ref-content {
   display: flex;
   flex-direction: column;
@@ -91,16 +93,127 @@
   font-weight: 500;
 }
 
+/* Přechody vypnout pro reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .ref-card { transition: none; }
   .ref-card:hover { transform: none; }
 }
+
 /* Desktop: větší svislá mezera mezi řadami karet */
 @media (min-width: 900px) {
   #reference .ref-grid {
-    row-gap: 3.5rem;   /* uprav klidně na 2.2–3.0rem podle oka */
+    row-gap: 3.5rem; /* uprav podle oka */
   }
 }
+
+/* === Mobil: 1 karta a rotace; pořadí = TEXT → HODNOCENÍ → (FOTO + ROK/MÍSTO) === */
+@media (max-width: 768px) {
+  /* Rotátor – stabilní, ale nepředimenzovaná výška */
+  #reference .ref-grid {
+    position: relative;
+    min-height: clamp(460px, 62vh, 560px);
+  }
+
+  /* Karta přes celou plochu; přeuspořádání oblastí */
+  #reference .ref-card {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease;
+    padding: .95rem;
+
+    /* mobilní rozvržení: nejdřív text (.ref-content), pak info (.ref-info) */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;       /* content | info */
+    grid-template-areas:
+      "content"
+      "info";
+    row-gap: 1.1rem;                      /* větší mezera mezi textem a fotoblokem */
+  }
+  #reference .ref-card.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* TEXT BLOK (title + summary + quote + author) – text má prioritu */
+  #reference .ref-content {
+    grid-area: content;
+    display: grid;
+    grid-template-rows: auto auto auto auto; /* title | summary | quote | author */
+    align-content: start;
+    gap: .6rem;                              /* ještě o chlup větší vnitřní rozestupy */
+    border-left: 3px solid rgba(0,208,240,0.22);
+    padding-left: .7rem;
+  }
+  #reference .ref-title { margin: 0; }
+  #reference .ref-summary {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* větší mezera mezi hlavním textem a hodnocením */
+  #reference .ref-quote { margin-top: .9rem; }
+  #reference .ref-author { margin-top: .3rem; }
+
+  /* INFO BLOK dole: VĚTŠÍ fotka, rok nad místem, mezi nimi MALÁ mezera */
+  #reference .ref-info {
+    grid-area: info;
+    display: grid;
+    grid-template-columns: 120px 1fr;  /* ⬅ zvětšená miniatura | meta */
+    grid-template-rows: auto auto;     /* year | location */
+    align-items: center;
+    column-gap: .85rem;
+    row-gap: .00rem;                   /* ⬅ menší mezera mezi rokem a místem */
+    font-size: .95rem;
+  }
+  #reference .ref-thumb {
+    grid-column: 1;
+    grid-row: 1 / span 2;              /* fotka přes oba řádky */
+    width: 120px;                       /* ⬅ větší fotka */
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin: 0;
+  }
+  #reference .ref-year {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    white-space: nowrap;
+  }
+  #reference .ref-location {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: .95rem;
+    color: var(--ref-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+  }
+}
+
+/* Mobil + reduced motion: vypnout rotátor a nechat vše pod sebou */
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  #reference .ref-grid {
+    position: static;
+    min-height: unset;
+  }
+  #reference .ref-card {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+    transition: none;
+  }
+}
+
+
+
+
+
 
 
 

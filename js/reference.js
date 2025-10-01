@@ -113,6 +113,85 @@
     document.addEventListener("DOMContentLoaded", renderGrid, { once: true });
   }
 })();
+// === Mobilní auto-rotátor referencí (bez karuselu) ===
+(() => {
+  const MQ_MOBILE = window.matchMedia('(max-width: 768px)');
+  const MQ_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let timer = null;
+  let idx = 0;
+  let cards = [];
+
+  function getCards() {
+    const grid = document.getElementById('refGrid');
+    return grid ? Array.from(grid.querySelectorAll('.ref-card')) : [];
+  }
+
+  function show(i) {
+    cards.forEach((el, j) => el.classList.toggle('is-active', i === j));
+  }
+
+  function start() {
+    // jen na mobilu a pokud uživatel nechce omezovat animace
+    if (!MQ_MOBILE.matches || MQ_REDUCED.matches) return stop();
+
+    cards = getCards();
+    if (cards.length <= 1) return stop();
+
+    idx = 0;
+    show(idx);
+    stop(); // pojistka
+    timer = setInterval(() => {
+      idx = (idx + 1) % cards.length;
+      show(idx);
+    }, 5000); // interval přepínání (ms)
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+  }
+
+  function stop() {
+    if (timer) clearInterval(timer);
+    timer = null;
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+  }
+
+  function onVisibilityChange() {
+    if (document.hidden) {
+      stop();
+    } else {
+      start();
+    }
+  }
+
+  // Reakce na změnu šířky (mobil <-> desktop)
+  MQ_MOBILE.addEventListener?.('change', () => {
+    stop();
+    if (MQ_MOBILE.matches) {
+      start();
+    } else {
+      // Při návratu na desktop zrušíme "aktivní" třídu (grid zobrazí všechny)
+      cards = getCards();
+      cards.forEach(el => el.classList.remove('is-active'));
+    }
+  });
+
+  // Spuštění po načtení sekce „Reference“
+  function bootIfReady() {
+    if (document.getElementById('refGrid')) start();
+  }
+
+  // Když načítáš sekci dynamicky, chytíme vlastní event
+  document.addEventListener('section:loaded', (e) => {
+    if (e?.detail?.id === 'reference') bootIfReady();
+  });
+
+  // A pro jistotu i po DOMContentLoaded (kdyby to už bylo v DOM)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootIfReady, { once: true });
+  } else {
+    bootIfReady();
+  }
+})();
 
 
 
