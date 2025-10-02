@@ -38,67 +38,63 @@
     </aside>
 
     <section class="contact-form" aria-label="Kontaktní formulář">
-      <form id="contactForm" action="https://formsubmit.co/info@fortivoreko.cz" method="POST" accept-charset="UTF-8" novalidate>
-        <input type="text" name="_honey" style="display:none">
-        <input type="hidden" name="_next" value="https://fortivoreko.cz/dekuji.html">
-        <input type="hidden" name="_subject" value="Poptávka z webu – fortivoreko.cz">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="hp" id="hp" autocomplete="off" tabindex="-1" aria-hidden="true" class="hp">
+      <form id="contactForm" action="form-handler.php" method="POST" accept-charset="UTF-8" novalidate>
+  <input type="text" name="hp" id="hp" autocomplete="off" tabindex="-1" aria-hidden="true" class="hp">
 
-        <div class="field field--half" id="field-name">
-          <label for="name">Jméno a příjmení</label>
-          <input id="name" name="name" type="text" autocomplete="name" required placeholder="Jan Novák">
-          <small class="error" id="err-name" aria-live="polite"></small>
-        </div>
+  <div class="field field--half" id="field-name">
+    <label for="name">Jméno a příjmení</label>
+    <input id="name" name="name" type="text" autocomplete="name" required placeholder="Jan Novák">
+    <small class="error" id="err-name" aria-live="polite"></small>
+  </div>
 
-        <div class="field field--half" id="field-email">
-          <label for="email">E-mail</label>
-          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="novak@example.com">
-          <small class="error" id="err-email" aria-live="polite"></small>
-        </div>
+  <div class="field field--half" id="field-email">
+    <label for="email">E-mail</label>
+    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="novak@example.com">
+    <small class="error" id="err-email" aria-live="polite"></small>
+  </div>
 
-        <div class="field field--half" id="field-phone">
-          <label for="phone">Telefon (nepovinné)</label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+420 123 456 789">
-          <small class="error" id="err-phone" aria-live="polite"></small>
-        </div>
+  <div class="field field--half" id="field-phone">
+    <label for="phone">Telefon (nepovinné)</label>
+    <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+420 123 456 789">
+    <small class="error" id="err-phone" aria-live="polite"></small>
+  </div>
 
-        <div class="field field--half" id="field-place">
-          <label for="place">Místo realizace</label>
-          <input id="place" name="place" type="text" placeholder="Praha / Brno / Plzeň…" required>
-          <small class="error" id="err-place" aria-live="polite"></small>
-        </div>
+  <div class="field field--half" id="field-place">
+    <label for="place">Místo realizace</label>
+    <input id="place" name="place" type="text" placeholder="Praha / Brno / Plzeň…" required>
+    <small class="error" id="err-place" aria-live="polite"></small>
+  </div>
 
-        <div class="field field--full" id="field-message">
-          <label for="message">Zpráva</label>
-          <textarea id="message" name="message" rows="6" maxlength="1000"
-            placeholder="Popište nám stručně vaši poptávku (max. 1000 znaků)" required></textarea>
-          <small class="error" id="err-message" aria-live="polite"></small>
-        </div>
+  <div class="field field--full" id="field-message">
+    <label for="message">Zpráva</label>
+    <textarea id="message" name="message" rows="6" maxlength="1000"
+      placeholder="Popište nám stručně vaši poptávku (max. 1000 znaků)" required></textarea>
+    <small class="error" id="err-message" aria-live="polite"></small>
+  </div>
 
-        <div class="checks">
-          <label class="checkbox">
-            <input type="checkbox" id="consent" name="consent" required>
-            <span class="fineprint">Souhlasím se zpracováním osobních údajů za účelem vyřízení poptávky.
-              <a href="/gdpr.html" target="_blank" rel="noopener">(Zásady ochrany osobních údajů)</a></span>
-          </label>
-          <small class="error" id="err-consent" aria-live="polite"></small>
+  <div class="checks">
+    <label class="checkbox">
+      <input type="checkbox" id="consent" name="consent" required>
+      <span class="fineprint">Souhlasím se zpracováním osobních údajů za účelem vyřízení poptávky.
+        <a href="/gdpr.html" target="_blank" rel="noopener">(Zásady ochrany osobních údajů)</a></span>
+    </label>
+    <small class="error" id="err-consent" aria-live="polite"></small>
 
-          <label class="checkbox">
-            <input type="checkbox" id="copy" name="copy">
-            <span class="fineprint">Chci kopii zprávy na svůj e-mail.</span>
-          </label>
-        </div>
+    <label class="checkbox">
+      <input type="checkbox" id="copy" name="copy">
+      <span class="fineprint">Chci kopii zprávy na svůj e-mail.</span>
+    </label>
+  </div>
 
-        <div class="actions">
-          <button type="submit" id="submitBtn" class="btn-primary">
-            <span class="btn-text">Odeslat zprávu</span>
-            <span class="btn-spinner" aria-hidden="true"></span>
-          </button>
-          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-        </div>
-      </form>
+  <div class="actions">
+    <button type="submit" id="submitBtn" class="btn-primary">
+      <span class="btn-text">Odeslat zprávu</span>
+      <span class="btn-spinner" aria-hidden="true"></span>
+    </button>
+    <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+  </div>
+</form>
+
     </section>
   </div>
 </div>
