@@ -1,17 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Děkujeme</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Děkujeme | FORTIVO REKO</title>
+
+  <!-- využijeme existující styly + doplníme pár lokálních -->
   <link rel="stylesheet" href="/css/kontakt.css">
+  <style>
+    :root { --accent:#00d0f0; --header-bg:#0f172a; }
+    body {
+      margin:0; font-family: "Inter","Segoe UI",Roboto,Arial,sans-serif;
+      background:#f3f4f6; color:#111827;
+    }
+    .thank-hero {
+      background: var(--header-bg);
+      color: var(--accent);
+      padding: 28px 0;
+      text-align: center;
+    }
+    .thank-hero .brand {
+      display:inline-flex; align-items:center; gap:.6rem;
+      font-weight:700; letter-spacing:.02em;
+    }
+    .brand img { height:36px; width:auto; display:block; }
+    main { display:grid; place-items:center; min-height:calc(100svh - 110px); }
+    .thank-card {
+      width:min(720px,92vw); background:#fff; border:1px solid #e5e7eb;
+      border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      padding:28px; text-align:center;
+    }
+    .icon-ok {
+      width:48px; height:48px; margin:0 auto 10px auto; display:block;
+    }
+    h1 { margin:.25rem 0 0 0; font-size:1.6rem; color:#111827; }
+    p.lead { margin:.35rem 0 1rem 0; color:#374151; }
+    .links { display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+    .btn {
+      appearance:none; border:1px solid #d1d5db; background:#e5e7eb; color:#111827;
+      padding:.6rem .95rem; border-radius:10px; font-weight:700; text-decoration:none;
+    }
+    .btn-primary { color:var(--accent); }
+    .meta { margin-top:14px; font-size:.9rem; color:#6b7280; }
+    .promo-link { text-decoration:none; color:var(--accent); font-weight:600; }
+  </style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>Děkujeme!</h2>
-    <p>Děkujeme za zprávu. Brzy se vám ozveme. Mezitím si můžete prohlédnout naše <a href="/#domu">promo video</a>.</p>
-    <p><a href="/">← Zpět na hlavní stránku</a></p>
-  </div>
+  <header class="thank-hero" role="banner">
+    <div class="brand" aria-label="FORTIVO REKO">
+      <img src="/img/logo.png" alt="FORTIVO REKO" onerror="this.remove()">
+      <span>FORTIVO&nbsp;REKO</span>
+    </div>
+  </header>
+
+  <main role="main">
+    <section class="thank-card" aria-label="Potvrzení odeslání formuláře">
+      <!-- jednoduchá „success“ ikona -->
+      <svg class="icon-ok" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
+        <path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <h1>Děkujeme za zprávu!</h1>
+      <p class="lead">Brzy se vám ozveme. Mezitím můžete zhlédnout naše <a class="promo-link" href="/#domu">promo video</a>.</p>
+
+      <div class="links" role="group" aria-label="Navigace">
+        <a class="btn btn-primary" href="/#domu">← Na úvod</a>
+        <a class="btn" href="/">Zpět na hlavní stránku</a>
+      </div>
+
+      <p class="meta">Pokud jste zaškrtli „Chci kopii zprávy“, zkontrolujte svou e-mailovou schránku (případně složku Nevyžádané).</p>
+    </section>
+  </main>
 </body>
 </html>
 
