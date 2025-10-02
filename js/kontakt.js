@@ -14,13 +14,8 @@
 
   function buildVCard(c) {
     const adr = [
-      "",                 
-      c.district || "",   
-      c.street || "",     
-      c.city || "",       
-      "",                 
-      c.postcode || "",   
-      c.country || ""    
+      "", c.district || "", c.street || "", c.city || "",
+      "", c.postcode || "", c.country || ""
     ].join(";");
 
     const lines = [
@@ -73,21 +68,21 @@
     const clearErrs = () => form.querySelectorAll(".error").forEach(el => el.textContent = "");
 
     form.addEventListener("submit", (e) => {
-      e.preventDefault();
+      // NEBLOKUJEME už submit úplně
+      clearErrs();
+      let ok = true;
 
       const hp = form.querySelector("#hp")?.value.trim();
-      if (hp) return;
+      if (hp) { // honeypot
+        e.preventDefault();
+        return;
+      }
 
       const name = form.name.value.trim();
       const email = form.email.value.trim();
-      const phone = form.phone.value.trim();
       const place = form.place.value.trim();
       const message = form.message.value.trim();
       const consent = form.consent.checked;
-      const copy = form.copy.checked;
-
-      clearErrs();
-      let ok = true;
 
       if (name.length < 2) { setErr("#err-name", "Zadejte jméno a příjmení."); ok = false; }
       const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -96,33 +91,14 @@
       if (!message) { setErr("#err-message", "Napište zprávu."); ok = false; }
       if (!consent) { setErr("#err-consent", "Bez souhlasu nelze odeslat."); ok = false; }
 
-      if (!ok) { statusEl.textContent = ""; return; }
+      if (!ok) {
+        e.preventDefault(); // zastavíme jen při chybách
+        statusEl.textContent = "";
+        return;
+      }
 
-      const to = COMPANY.email;
-      const subject = `Poptávka z webu – ${name}${place ? " (" + place + ")" : ""}`;
-
-      const lines = [
-        `Jméno a příjmení: ${name}`,
-        `E-mail: ${email}`,
-        phone ? `Telefon: ${phone}` : null,
-        `Místo realizace: ${place}`,
-        "",
-        "Zpráva:",
-        message,
-        "",
-        `Souhlas se zpracováním: ano`,
-        `Datum: ${new Date().toLocaleString("cs-CZ")}`,
-        `Zdroj: ${location.href}`
-      ].filter(Boolean);
-
-      const params = new URLSearchParams();
-      params.set("subject", subject);
-      params.set("body", lines.join("\n"));
-      if (copy && emailOk) params.set("cc", email); 
-
-      const mailtoUrl = `mailto:${encodeURIComponent(to)}?${params.toString()}`;
-      statusEl.textContent = "Otevírám e-mail s předvyplněnou zprávou…";
-      setTimeout(() => { window.location.href = mailtoUrl; }, 50);
+      // pokud je vše OK → necháme formulář normálně odeslat na FormSubmit
+      statusEl.textContent = "Odesílám zprávu…";
     });
   }
 
@@ -141,6 +117,7 @@
     }
   });
 })();
+
 
 
 
