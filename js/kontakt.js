@@ -82,6 +82,7 @@
       const place = form.place.value.trim();
       const message = form.message.value.trim();
       const consent = form.consent.checked;
+      const copy = form.copy.checked;
 
      if (name.length < 2) { 
   setErr("#err-name", "Zadejte prosím jméno a příjmení."); 
@@ -115,6 +116,19 @@ if (copy) {
   autoInput.name = "_autoresponse";
   autoInput.value = "Děkujeme, že jste nás kontaktovali prostřednictvím našeho webu fortivoreko.cz. Toto je kopie vaší zprávy. Naše odpověď vám přijde v nejbližších dnech. Pro více informací navštivte https://fortivoreko.cz.";
   form.appendChild(autoInput);
+}
+if (copy) {
+  const autoInput = document.createElement("input");
+  autoInput.type = "hidden";
+  autoInput.name = "_autoresponse";
+  autoInput.value = "Děkujeme, že jste nás kontaktovali prostřednictvím našeho webu fortivoreko.cz. Toto je kopie vaší zprávy. Naše odpověď vám přijde v nejbližších dnech. Pro více informací navštivte https://fortivoreko.cz.";
+  form.appendChild(autoInput);
+
+  const ccInput = document.createElement("input");
+  ccInput.type = "hidden";
+  ccInput.name = "_cc";
+  ccInput.value = email; 
+  form.appendChild(ccInput);
 }
 statusEl.textContent = "Odesíláme vaši zprávu, prosím vyčkejte…";
     });
