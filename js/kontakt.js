@@ -68,12 +68,11 @@
     const clearErrs = () => form.querySelectorAll(".error").forEach(el => el.textContent = "");
 
     form.addEventListener("submit", (e) => {
-      // NEBLOKUJEME už submit úplně
       clearErrs();
       let ok = true;
 
       const hp = form.querySelector("#hp")?.value.trim();
-      if (hp) { // honeypot
+      if (hp) { 
         e.preventDefault();
         return;
       }
@@ -84,21 +83,40 @@
       const message = form.message.value.trim();
       const consent = form.consent.checked;
 
-      if (name.length < 2) { setErr("#err-name", "Zadejte jméno a příjmení."); ok = false; }
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!emailOk) { setErr("#err-email", "Zadejte platný e-mail."); ok = false; }
-      if (!place) { setErr("#err-place", "Zadejte místo realizace."); ok = false; }
-      if (!message) { setErr("#err-message", "Napište zprávu."); ok = false; }
-      if (!consent) { setErr("#err-consent", "Bez souhlasu nelze odeslat."); ok = false; }
-
-      if (!ok) {
-        e.preventDefault(); // zastavíme jen při chybách
-        statusEl.textContent = "";
-        return;
-      }
-
-      // pokud je vše OK → necháme formulář normálně odeslat na FormSubmit
-      statusEl.textContent = "Odesílám zprávu…";
+     if (name.length < 2) { 
+  setErr("#err-name", "Zadejte prosím jméno a příjmení."); 
+  ok = false; 
+}
+const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+if (!emailOk) { 
+  setErr("#err-email", "Zadejte platný e-mail."); 
+  ok = false; 
+}
+if (!place) { 
+  setErr("#err-place", "Uveďte místo realizace."); 
+  ok = false; 
+}
+if (!message) { 
+  setErr("#err-message", "Napište prosím zprávu."); 
+  ok = false; 
+}
+if (!consent) { 
+  setErr("#err-consent", "Bez souhlasu se zpracováním nelze odeslat."); 
+  ok = false; 
+}
+if (!ok) {
+  e.preventDefault(); 
+  statusEl.textContent = "";
+  return;
+}
+if (copy) {
+  const autoInput = document.createElement("input");
+  autoInput.type = "hidden";
+  autoInput.name = "_autoresponse";
+  autoInput.value = "Děkujeme, že jste nás kontaktovali prostřednictvím našeho webu fortivoreko.cz. Toto je kopie vaší zprávy. Naše odpověď vám přijde v nejbližších dnech. Pro více informací navštivte https://fortivoreko.cz.";
+  form.appendChild(autoInput);
+}
+statusEl.textContent = "Odesíláme vaši zprávu, prosím vyčkejte…";
     });
   }
 

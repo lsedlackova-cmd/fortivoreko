@@ -150,8 +150,17 @@ textarea { resize: vertical; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.form-status { min-height: 1.1em; color: #333; }
-.error { color: #b91c1c; min-height: 1em; }
+.form-status { min-height: 1.1em; color: #333; font-size: 0.9rem; opacity: 0.9;}
+.error {
+  color: #333;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  min-height: 1em;
+  margin-top: 2px;
+}
+.error:empty {
+  display: none;
+}
 .hp { position: absolute; left: -9999px; top: -9999px; }
 
 @media (min-width: 900px) {
