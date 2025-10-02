@@ -2,42 +2,42 @@
   const DATA = [
     {
       id: "ref-1",
-      title: "Obnova historické fasády nájemního domu",
-      location: "Praha 1",
-      year: 2025,
+      title: "Obnova historické fasády bytového domu",
+      location: "Liberec",
+      year: 2023,
       summary: "Citlivé restaurování štukových prvků, návrat k vápenným omítkám a historické barevnosti s důrazem na prodyšnost.",
-      author: "Jana K.",
-      quote: "Děkuji, spolehlivá práce a krásný výsledek.",
+      author: "Společenství vlastníků",
+      quote: "Děkujeme, spolehlivá práce a krásný výsledek.",
       thumb: "/img/reference-1.jpg"
     },
     {
       id: "ref-2",
-      title: "Rekonstrukce fasády panelového domu",
+      title: "Sanace panelového domu a jeho okolí",
       location: "Hrádek nad Nisou",
-      year: 2024,
-      summary: "Kompletní sanace zateplovacího systému, lokální opravy, sjednocení struktury a barevnosti, nové oplechování atik.",
-      author: "Petr V.",
-      quote: "Vždy přišli na čas, práce odvedena kvalitně. Doporučuji.",
+      year: 2025,
+      summary: "Kompletní sanace panelového domu, lokální opravy, sjednocení struktury a barevnosti.",
+      author: "Společenství vlastníků",
+      quote: "Vždy přišli na čas, práce odvedena kvalitně. Doporučujeme.",
       thumb: "/img/reference-2.jpg"
     },
     {
       id: "ref-3",
-      title: "Rekonstrukce interiéru bytu 3+1",
-      location: "Praha 5",
+      title: "Rekonstrukce bytové jednotky",
+      location: "Liberec",
       year: 2024,
-      summary: "Nové povrchy stěn a stropů, výmalby v minerálních nátěrech, srovnání podkladů a decentní štukové detaily.",
-      author: "Lucie S.",
+      summary: "Návrh zpracování ve splupráci s architekty.  Designové sterky, nové bytové jádro, nadstandardní povrchy, sadrokartony.",
+      author: "Jiří M.",
       quote: "Skvělá spolupráce, ochotný tým, byt je k nepoznání.",
       thumb: "/img/reference-3.jpg"
     },
     {
       id: "ref-4",
-      title: "Rekonstrukce koupelny v panelovém bytě",
+      title: "Rekonstrukce koupelny v bytovém domě",
       location: "Liberec",
-      year: 2025,
-      summary: "Kompletní vybourání jádra, nové hydroizolace, obklady, spárování a sanace větrání pro snížení vlhkosti.",
-      author: "Martin D.",
-      quote: "Rychle, kvalitně a bez problémů. Jsem moc spokojený.",
+      year: 2022,
+      summary: "Kompletní rekonstrukce, hydroizolace, obklady, spárování a sanace větrání pro snížení vlhkosti.",
+      author: "Veronika D.",
+      quote: "Rychle, kvalitně a bez problémů. Jsem moc spokojená.",
       thumb: "/img/reference-4.jpg"
     }
   ];
