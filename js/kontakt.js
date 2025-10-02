@@ -58,7 +58,6 @@
   }
 
   function initForm(root = document) {
-    // ✅ použij querySelector – funguje i když root je element (sekce), ne document
     const form = root.querySelector("#contactForm");
     if (!form) return;
 
@@ -69,18 +68,15 @@
     const clearErrs = () => form.querySelectorAll(".error").forEach(el => el.textContent = "");
 
     form.addEventListener("submit", (e) => {
-      // vždy začneme čistě
       clearErrs();
       if (statusEl) statusEl.textContent = "";
 
-      // 🧯 honeypot – když je vyplněný, zastavíme (bot)
       const hp = form.querySelector("#hp")?.value.trim();
       if (hp) {
         e.preventDefault();
         return;
       }
 
-      // načtení hodnot
       const name = form.name.value.trim();
       const email = form.email.value.trim();
       const place = form.place.value.trim();
@@ -88,7 +84,6 @@
       const consent = form.consent.checked;
       const copy = form.copy.checked;
 
-      // validace
       let ok = true;
       if (name.length < 2) { setErr("#err-name", "Zadejte prosím jméno a příjmení."); ok = false; }
       const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -96,15 +91,56 @@
       if (!place) { setErr("#err-place", "Uveďte místo realizace."); ok = false; }
       if (!message) { setErr("#err-message", "Napište prosím zprávu."); ok = false; }
       if (!consent) { setErr("#err-consent", "Bez souhlasu se zpracováním nelze odeslat."); ok = false; }
-
-      // pokud je chyba → neodesílat
       if (!ok) {
         e.preventDefault();
         if (statusEl) statusEl.textContent = "Zkontrolujte prosím vyznačená pole.";
         return;
       }
 
-      // jen když chce kopii → přidáme skrytá pole pro FormSubmit
+const ensureHidden = (name, value) => {
+  let n = form.querySelector(`input[name="${name}"]`);
+  if (!n) {
+    n = document.createElement("input");
+    n.type = "hidden";
+    n.name = name;
+    form.appendChild(n);
+  }
+  n.value = value;
+};
+const removeHidden = (name) => {
+  form.querySelectorAll(`input[name="${name}"]`).forEach(n => n.remove());
+};
+
+ensureHidden("_template", "box");
+ensureHidden("_subject", "Poptávka z webu – FORTIVO REKO");
+
+ensureHidden("_replyto", form.querySelector("#email").value.trim());
+
+if (form.copy.checked) {
+  ensureHidden("_autoresponse",
+    "Děkujeme, že jste nás kontaktovali prostřednictvím našeho webu fortivoreko.cz.\n\n" +
+    "Toto je kopie vaší zprávy. Ozveme se vám co nejdříve.\n\n" +
+    "Pro více informací navštivte https://fortivoreko.cz"
+  );
+  ensureHidden("_cc", form.querySelector("#email").value.trim());
+} else {
+  removeHidden("_autoresponse");
+  removeHidden("_cc");
+}
+
+[
+  ["#name",    "Jméno a příjmení"],
+  ["#email",   "E-mail"],
+  ["#phone",   "Telefon"],
+  ["#place",   "Místo realizace"],
+  ["#message", "Zpráva"],
+  ["#consent", "Souhlas se zpracováním"],
+  ["#copy",    "Kopie zprávy"]
+].forEach(([sel, label]) => {
+  const el = form.querySelector(sel);
+  if (el) el.name = label;
+});
+
       if (copy && emailOk) {
         let autoInput = form.querySelector("input[name='_autoresponse']");
         if (!autoInput) {
@@ -127,13 +163,9 @@
         }
         ccInput.value = email;
       } else {
-        // pojistka: pokud není zaškrtnuto, odstraníme případné staré _autoresponse/_cc
         form.querySelectorAll("input[name='_autoresponse'], input[name='_cc']").forEach(n => n.remove());
       }
-
-      // sem se dostaneme jen při úspěšné validaci
       if (statusEl) statusEl.textContent = "Odesíláme vaši zprávu, prosím vyčkejte…";
-      // neblokujeme submit -> FormSubmit odešle formulář podle action/method
     });
   }
 
@@ -144,7 +176,6 @@
     boot();
   }
 
-  // reinicializace při lazy-loadu sekcí
   document.addEventListener("section:loaded", (ev) => {
     if (ev?.detail?.id === "kontakt") {
       const root = document.getElementById("kontakt") || document;
