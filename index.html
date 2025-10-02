@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FORTIVO REKO</title>
 
-  <!-- Webfont s latin-ext pro 100% diakritiku -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -42,7 +41,6 @@
     }
     .container { width: min(1100px,92vw); margin-inline: auto; }
 
-    /* Nadpisy všech sekcí i podsekcí */
     h2, h3 {
       margin: 0 0 1rem 0;
       font: 600 1.6rem/1.2
@@ -53,7 +51,6 @@
       text-align: left;
     }
 
-    /* DOMŮ – video */
     #domu { position: relative; min-height: auto; padding-top: 80px; }
     .hero-media { width: 100%; max-width: 1000px; margin-inline: auto; position: relative; }
     .hero-media video {
@@ -61,7 +58,6 @@
       aspect-ratio: 16/9;
       object-fit: cover;
       border-radius: 12px;
-      /* měkký šedý stín */
       box-shadow: 0 0 50px rgba(0,0,0,0.4);
     }
     .sound-toggle {
@@ -80,18 +76,14 @@
     #nasesluzby .subsection { margin-bottom: 2.5rem; }
   </style>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="/css/header.css" />
-  <!-- /css/domu.css pokud někdy vytvoříš -->
   <link rel="stylesheet" href="/css/onas.css" />
   <link rel="stylesheet" href="/css/nasesluzby.css" />
   <link rel="stylesheet" href="/css/reference.css" />
   <link rel="stylesheet" href="/css/kontakt.css" />
   <link rel="stylesheet" href="/css/footer.css" />
-  <!-- Cookie lišta -->
   <link rel="stylesheet" href="/css/cookie-consent.css" />
 
-  <!-- JS -->
   <script defer src="/js/header.js"></script>
   <script defer src="/js/loading-section.js"></script>
   <script defer src="/js/video-sound.js"></script>
@@ -99,7 +91,6 @@
   <script defer src="/js/onas.js"></script>
   <script defer src="/js/reference.js"></script>
   <script defer src="/js/kontakt.js"></script>
-  <!-- Cookie lišta (musí být po ostatních skriptech – neblokuje) -->
   <script defer src="/js/cookie-consent.js"></script>
 </head>
 <body>
@@ -110,7 +101,7 @@
   <div id="site-header"></div>
 
   <main id="app">
-    <!-- Domů -->
+  
     <section id="domu" aria-label="Domů">
       <div class="container hero-media">
         <video id="intro-video" src="/video/intro.mp4" autoplay muted loop playsinline preload="metadata" poster="/img/intro-poster.jpg"></video>
@@ -118,12 +109,9 @@
       </div>
     </section>
 
-    <!-- O nás se vloží dynamicky z html/onas.html sem (za #domu) -->
-
-    <!-- Naše služby -->
     <section id="nasesluzby" aria-label="Naše služby">
       <div class="services-wrap">
-        <!-- Historické fasády -->
+       
         <div class="subsection" id="sluzby-historicke">
           <h3>Historické fasády</h3>
           <div class="carousel" aria-label="Historické fasády – karusel">
@@ -142,7 +130,6 @@
           </div>
         </div>
 
-        <!-- Interiéry -->
         <div class="subsection" id="sluzby-interiery">
           <h3>Interiéry</h3>
           <div class="carousel" aria-label="Interiéry – karusel">
@@ -161,7 +148,6 @@
           </div>
         </div>
 
-        <!-- Exteriéry -->
         <div class="subsection" id="sluzby-exteriery">
           <h3>Exteriéry</h3>
           <div class="carousel" aria-label="Exteriéry – karusel">
@@ -189,11 +175,9 @@
       </div>
     </section>
 
-    <!-- Kontakt – obsah se dynamicky načte z /html/kontakt.html -->
     <section id="kontakt" aria-label="Kontakt"></section>
   </main>
 
-  <!-- Footer se načte dynamicky -->
   <div id="site-footer"></div>
 </body>
 </html>
